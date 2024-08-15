@@ -1,6 +1,5 @@
 package com.revature.planetarium.service.user;
 
-
 import java.util.Optional;
 
 import com.revature.planetarium.entities.User;
@@ -8,7 +7,7 @@ import com.revature.planetarium.exceptions.UserFail;
 import com.revature.planetarium.repository.user.UserDao;
 
 public class UserServiceImp implements UserService {
-    
+
     private UserDao userDao;
 
     public UserServiceImp(UserDao userDao) {
@@ -29,7 +28,8 @@ public class UserServiceImp implements UserService {
         }
         Optional<User> createdUser = userDao.createUser(newUser);
         if (createdUser.isPresent()) {
-            return "Created user with username " + createdUser.get().getUsername() + " and password " + createdUser.get().getPassword();
+            return "Created user with username " + createdUser.get().getUsername() + " and password "
+                    + createdUser.get().getPassword();
         } else {
             throw new UserFail("Failed to create user, please try again");
         }

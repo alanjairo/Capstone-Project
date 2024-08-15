@@ -14,15 +14,14 @@ import java.time.Duration;
 
 public class LoginStep {
 
-
     @Before
     public void aRegisterdUser() {
 
-            TestRun.startPage.goToStartPage();
-            TestRun.startPage.clickCreateAccountLink();
-            TestRun.startPage.sendUsernameInput("Batman and Robin Unite Now!!!!");
-            TestRun.startPage.sendPasswordInput("Riddler and Joker Disagree!!!!");
-            TestRun.regPage.clickAccountSubmitButton();
+        TestRun.startPage.goToStartPage();
+        TestRun.startPage.clickCreateAccountLink();
+        TestRun.startPage.sendUsernameInput("Batman and Robin Unite Now!!!!");
+        TestRun.startPage.sendPasswordInput("Riddler and Joker Disagree!!!!");
+        TestRun.regPage.clickAccountSubmitButton();
         WebDriverWait wait = new WebDriverWait(TestRun.driver, Duration.ofSeconds(3));
         Alert alert = wait.until(ExpectedConditions.alertIsPresent());
         alert = TestRun.driver.switchTo().alert();
@@ -34,9 +33,6 @@ public class LoginStep {
         }
 
     }
-
-
-
 
     @Given("the username and password were registered")
     public void the_user_is_on_the_Landing_Page() {
@@ -53,7 +49,6 @@ public class LoginStep {
         TestRun.wait.until(ExpectedConditions.titleIs("Home"));
         Assert.assertEquals("Home", TestRun.driver.getTitle());
     }
-
 
     @When("the user enters {string} in the username bar1")
     public void the_user_enters_in_the_username_bar(String string) {

@@ -12,14 +12,12 @@ public class RegPage {
     @FindBy(xpath = "//*[@id=\"loginForm\"]/input[3]")
     private WebElement createButton;
 
-    public RegPage(WebDriver driver)
-    {
+    public RegPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public void clickAccountSubmitButton()
-    {
+    public void clickAccountSubmitButton() {
         createButton.click();
     }
 

@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Account Creation</title>
-    <style>
+  <title>Account Creation</title>
+  <style>
     body {
-        background-color: #000000;
-        color: #ffffff;
-        font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
+      background-color: #000000;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
+
     .container {
       background-color: #333333;
       padding: 20px;
@@ -20,15 +22,18 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
       width: 300px;
     }
+
     .container input[type="text"],
     .container input[type="password"] {
-      width: calc(100% - 20px); /* Adjusted width to account for padding */
+      width: calc(100% - 20px);
+      /* Adjusted width to account for padding */
       padding: 10px;
       margin-bottom: 10px;
       border: none;
       border-radius: 3px;
       box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
     }
+
     .container input[type="submit"] {
       width: 100%;
       padding: 10px;
@@ -40,6 +45,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>Create Account</h1>
@@ -51,36 +57,37 @@
   </div>
 </body>
 <script>
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission behavior
+  document.getElementById('loginForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the default form submission behavior
 
-        const username = document.getElementById('usernameInput').value;
-        const password = document.getElementById('passwordInput').value;
+    const username = document.getElementById('usernameInput').value;
+    const password = document.getElementById('passwordInput').value;
 
-        const loginData = {
-            username: username,
-            password: password
-        };
+    const loginData = {
+      username: username,
+      password: password
+    };
 
-        fetch('http://localhost:8080/register', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(loginData)
-        })
-        .then(response => {
-            if (response.status === 201) {
-                alert(`Account created successfully with username "${username}" and password "${password}"`);
-                window.location.replace("http://localhost:8080/");
-            } else {
-                alert(`Account creation failed with username "${username}" and password "${password}"`);
-            }
-        })
-        .catch(error => {
-            alert("Something went wrong, please try again")
-            console.error('Error:', error);
-        });
-    });
-  </script>
+    fetch('http://localhost:8080/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(loginData)
+    })
+      .then(response => {
+        if (response.status === 201) {
+          alert(`Account created successfully with username "${username}" and password "${password}"`);
+          window.location.replace("http://localhost:8080/");
+        } else {
+          alert(`Account creation failed with username "${username}" and password "${password}"`);
+        }
+      })
+      .catch(error => {
+        alert("Something went wrong, please try again")
+        console.error('Error:', error);
+      });
+  });
+</script>
+
 </html>

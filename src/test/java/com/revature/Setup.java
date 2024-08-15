@@ -32,13 +32,14 @@ public class Setup {
             conn.setAutoCommit(false);
             lines.forEach(sqlBuilder::append);
             String sqlString = sqlBuilder.toString();
-            String [] sqlStatements = sqlString.split(";");
+            String[] sqlStatements = sqlString.split(";");
             int imageCount = 1;
             for (String sqlStatement : sqlStatements) {
-                if (sqlStatement.contains("?")){
+                if (sqlStatement.contains("?")) {
                     String type = sqlStatement.contains("moons") ? "moon" : "planet";
-                    try(PreparedStatement ps = conn.prepareStatement(sqlStatement)){
-                        byte[] imageData = convertImgToByteArray(String.format("src/test/resources/Celestial-Images/%s-%d.jpg", type, imageCount));
+                    try (PreparedStatement ps = conn.prepareStatement(sqlStatement)) {
+                        byte[] imageData = convertImgToByteArray(
+                                String.format("src/test/resources/Celestial-Images/%s-%d.jpg", type, imageCount));
                         ps.setBytes(1, imageData);
                         ps.executeUpdate();
                         imageCount = imageCount == 2 ? 1 : 2;
@@ -51,7 +52,7 @@ public class Setup {
             }
             conn.commit();
         } catch (IOException | SQLException e) {
-            System.out.println("Error: " +e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }

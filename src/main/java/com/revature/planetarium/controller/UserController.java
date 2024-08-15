@@ -11,7 +11,6 @@ public class UserController {
 
     private UserService userService;
 
-
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -28,7 +27,7 @@ public class UserController {
         }
     }
 
-    public void login(Context ctx){
+    public void login(Context ctx) {
         User credentials = ctx.bodyAsClass(User.class);
         User user;
         try {
@@ -42,15 +41,14 @@ public class UserController {
         }
     }
 
-
-    public void logout(Context ctx){
+    public void logout(Context ctx) {
         ctx.req().getSession().invalidate();
         ctx.json("Logged out");
         ctx.status(401);
     }
 
-    public void authenticateUser(Context ctx){
-        if(ctx.req().getSession(false) == null){
+    public void authenticateUser(Context ctx) {
+        if (ctx.req().getSession(false) == null) {
             throw new AuthenticationFailed("Please log in first");
         }
     }

@@ -19,12 +19,14 @@ public class MoonDaoImp implements MoonDao {
     @Override
     public Optional<Moon> createMoon(Moon moon) {
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("INSERT INTO moons (name, myPlanetId, image) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS)){
+                PreparedStatement stmt = conn.prepareStatement(
+                        "INSERT INTO moons (name, myPlanetId, image) VALUES (?, ?, ?)",
+                        Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, moon.getMoonName());
             stmt.setInt(2, moon.getOwnerId());
             stmt.setBytes(3, moon.imageDataAsByteArray());
             stmt.executeUpdate();
-            try (ResultSet rs = stmt.getGeneratedKeys()){
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
                     int newMoonId = rs.getInt(1);
                     moon.setMoonId(newMoonId);
@@ -41,7 +43,7 @@ public class MoonDaoImp implements MoonDao {
     @Override
     public Optional<Moon> readMoon(int id) {
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM moons WHERE id = ?")) {
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM moons WHERE id = ?")) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -50,7 +52,7 @@ public class MoonDaoImp implements MoonDao {
                 moon.setMoonName(rs.getString("name"));
                 moon.setOwnerId(rs.getInt("myPlanetId"));
                 byte[] byteImageData = rs.getBytes("image");
-                if (byteImageData != null){
+                if (byteImageData != null) {
                     String base64ImageData = Base64.getEncoder().encodeToString(byteImageData);
                     moon.setImageData(base64ImageData);
                 }
@@ -66,7 +68,7 @@ public class MoonDaoImp implements MoonDao {
     @Override
     public Optional<Moon> readMoon(String name) {
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM moons WHERE name = ?")) {
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM moons WHERE name = ?")) {
             stmt.setString(1, name);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -75,7 +77,7 @@ public class MoonDaoImp implements MoonDao {
                 moon.setMoonName(rs.getString("name"));
                 moon.setOwnerId(rs.getInt("myPlanetId"));
                 byte[] byteImageData = rs.getBytes("image");
-                if (byteImageData != null){
+                if (byteImageData != null) {
                     String base64ImageData = Base64.getEncoder().encodeToString(byteImageData);
                     moon.setImageData(base64ImageData);
                 }
@@ -92,7 +94,7 @@ public class MoonDaoImp implements MoonDao {
     public List<Moon> readAllMoons() {
         List<Moon> moons = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM moons")) {
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM moons")) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Moon moon = new Moon();
@@ -100,7 +102,7 @@ public class MoonDaoImp implements MoonDao {
                 moon.setMoonName(rs.getString("name"));
                 moon.setOwnerId(rs.getInt("myPlanetId"));
                 byte[] byteImageData = rs.getBytes("image");
-                if (byteImageData != null){
+                if (byteImageData != null) {
                     String base64ImageData = Base64.getEncoder().encodeToString(byteImageData);
                     moon.setImageData(base64ImageData);
                 }
@@ -117,7 +119,7 @@ public class MoonDaoImp implements MoonDao {
     public List<Moon> readMoonsByPlanet(int planetId) {
         List<Moon> moons = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM moons WHERE myPlanetId = ?")) {
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM moons WHERE myPlanetId = ?")) {
             stmt.setInt(1, planetId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -126,7 +128,7 @@ public class MoonDaoImp implements MoonDao {
                 moon.setMoonName(rs.getString("name"));
                 moon.setOwnerId(rs.getInt("myPlanetId"));
                 byte[] byteImageData = rs.getBytes("image");
-                if (byteImageData != null){
+                if (byteImageData != null) {
                     String base64ImageData = Base64.getEncoder().encodeToString(byteImageData);
                     moon.setImageData(base64ImageData);
                 }
@@ -142,7 +144,8 @@ public class MoonDaoImp implements MoonDao {
     @Override
     public Optional<Moon> updateMoon(Moon moon) {
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("UPDATE moons SET name = ?, myPlanetId = ? WHERE id = ?")) {
+                PreparedStatement stmt = conn
+                        .prepareStatement("UPDATE moons SET name = ?, myPlanetId = ? WHERE id = ?")) {
             stmt.setString(1, moon.getMoonName());
             stmt.setInt(2, moon.getOwnerId());
             stmt.setInt(3, moon.getMoonId());
@@ -157,7 +160,7 @@ public class MoonDaoImp implements MoonDao {
     @Override
     public boolean deleteMoon(int id) {
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("DELETE FROM moons WHERE id = ?")) {
+                PreparedStatement stmt = conn.prepareStatement("DELETE FROM moons WHERE id = ?")) {
             stmt.setInt(1, id);
             int rowsDeleted = stmt.executeUpdate();
             return rowsDeleted > 0;
@@ -170,7 +173,7 @@ public class MoonDaoImp implements MoonDao {
     @Override
     public boolean deleteMoon(String name) {
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("DELETE FROM moons WHERE name = ?")) {
+                PreparedStatement stmt = conn.prepareStatement("DELETE FROM moons WHERE name = ?")) {
             stmt.setString(1, name);
             int rowsDeleted = stmt.executeUpdate();
             return rowsDeleted > 0;
@@ -179,5 +182,5 @@ public class MoonDaoImp implements MoonDao {
             throw new MoonFail(e.getMessage());
         }
     }
-    
+
 }

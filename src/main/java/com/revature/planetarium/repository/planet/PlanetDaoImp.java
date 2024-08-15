@@ -19,12 +19,14 @@ public class PlanetDaoImp implements PlanetDao {
     @Override
     public Optional<Planet> createPlanet(Planet planet) {
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("INSERT INTO planets (name, ownerId, image) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS)){
+                PreparedStatement stmt = conn.prepareStatement(
+                        "INSERT INTO planets (name, ownerId, image) VALUES (?, ?, ?)",
+                        Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, planet.getPlanetName());
             stmt.setInt(2, planet.getOwnerId());
             stmt.setBytes(3, planet.imageDataAsByteArray());
             stmt.executeUpdate();
-            try (ResultSet rs = stmt.getGeneratedKeys()){
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
                     int newPlanetId = rs.getInt(1);
                     planet.setPlanetId(newPlanetId);
@@ -38,13 +40,12 @@ public class PlanetDaoImp implements PlanetDao {
         return Optional.empty();
     }
 
-
     @Override
     public Optional<Planet> readPlanet(int id) {
-        try (Connection conn = DatabaseConnector.getConnection(); 
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM planets WHERE id = ?")){
+        try (Connection conn = DatabaseConnector.getConnection();
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM planets WHERE id = ?")) {
             stmt.setInt(1, id);
-            try (ResultSet rs = stmt.executeQuery()){
+            try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     Planet planet = new Planet();
                     planet.setPlanetId(rs.getInt("id"));
@@ -62,10 +63,10 @@ public class PlanetDaoImp implements PlanetDao {
 
     @Override
     public Optional<Planet> readPlanet(String name) {
-        try (Connection conn = DatabaseConnector.getConnection()){
-            try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM planets WHERE name = ?")){
+        try (Connection conn = DatabaseConnector.getConnection()) {
+            try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM planets WHERE name = ?")) {
                 stmt.setString(1, name);
-                try (ResultSet rs = stmt.executeQuery()){
+                try (ResultSet rs = stmt.executeQuery()) {
                     if (rs.next()) {
                         Planet planet = new Planet();
                         planet.setPlanetId(rs.getInt("id"));
@@ -86,20 +87,20 @@ public class PlanetDaoImp implements PlanetDao {
     public List<Planet> readAllPlanets() {
         List<Planet> planets = new ArrayList<>();
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM planets");
-             ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    Planet planet = new Planet();
-                    planet.setPlanetId(rs.getInt("id"));
-                    planet.setPlanetName(rs.getString("name"));
-                    planet.setOwnerId(rs.getInt("ownerId"));
-                    if(rs.getBytes("image") != null){
-                        byte[] imageDataAsBytes = rs.getBytes("image");
-                        String imageDataBase64 = Base64.getEncoder().encodeToString(imageDataAsBytes);
-                        planet.setImageData(imageDataBase64);
-                    }
-                    planets.add(planet);
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM planets");
+                ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Planet planet = new Planet();
+                planet.setPlanetId(rs.getInt("id"));
+                planet.setPlanetName(rs.getString("name"));
+                planet.setOwnerId(rs.getInt("ownerId"));
+                if (rs.getBytes("image") != null) {
+                    byte[] imageDataAsBytes = rs.getBytes("image");
+                    String imageDataBase64 = Base64.getEncoder().encodeToString(imageDataAsBytes);
+                    planet.setImageData(imageDataBase64);
                 }
+                planets.add(planet);
+            }
         } catch (SQLException e) {
             System.out.println(e);
             throw new PlanetFail(e.getMessage());
@@ -110,8 +111,8 @@ public class PlanetDaoImp implements PlanetDao {
     @Override
     public List<Planet> readPlanetsByOwner(int ownerId) {
         List<Planet> planets = new ArrayList<>();
-        try (Connection conn = DatabaseConnector.getConnection(); 
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM planets WHERE ownerId = ?")) {
+        try (Connection conn = DatabaseConnector.getConnection();
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM planets WHERE ownerId = ?")) {
             stmt.setInt(1, ownerId);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -132,7 +133,8 @@ public class PlanetDaoImp implements PlanetDao {
     @Override
     public Optional<Planet> updatePlanet(Planet planet) {
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("UPDATE planets SET name = ?, ownerId = ? WHERE id = ?")) {
+                PreparedStatement stmt = conn
+                        .prepareStatement("UPDATE planets SET name = ?, ownerId = ? WHERE id = ?")) {
             stmt.setString(1, planet.getPlanetName());
             stmt.setInt(2, planet.getOwnerId());
             stmt.setInt(3, planet.getPlanetId());
@@ -144,14 +146,10 @@ public class PlanetDaoImp implements PlanetDao {
         }
     }
 
-
-
-
-
     @Override
     public boolean deletePlanet(int id) {
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("DELETE FROM planets WHERE id = ?")) {
+                PreparedStatement stmt = conn.prepareStatement("DELETE FROM planets WHERE id = ?")) {
             stmt.setInt(1, id);
             int rowsDeleted = stmt.executeUpdate();
             return rowsDeleted > 0;
@@ -164,7 +162,7 @@ public class PlanetDaoImp implements PlanetDao {
     @Override
     public boolean deletePlanet(String name) {
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("DELETE FROM planets WHERE name = ?")) {
+                PreparedStatement stmt = conn.prepareStatement("DELETE FROM planets WHERE name = ?")) {
             stmt.setString(1, name);
             int rowsDeleted = stmt.executeUpdate();
             return rowsDeleted > 0;
@@ -173,5 +171,5 @@ public class PlanetDaoImp implements PlanetDao {
             throw new PlanetFail(e.getMessage());
         }
     }
-    
+
 }

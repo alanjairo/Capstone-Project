@@ -1,6 +1,5 @@
 package com.revature.planetarium.entities;
 
-
 import java.util.Base64;
 
 public class Moon {
@@ -10,56 +9,64 @@ public class Moon {
     private int ownerId;
     private byte[] imageData;
 
+    public Moon() {
+    }
 
-    public Moon(){}
-
-    public Moon(int id, String name, int planetId){
+    public Moon(int id, String name, int planetId) {
         this.moonId = id;
         this.moonName = name;
         this.ownerId = planetId;
     }
-    
+
     public int getMoonId() {
         return moonId;
     }
+
     public void setMoonId(int moonId) {
         this.moonId = moonId;
     }
+
     public String getMoonName() {
         return moonName;
     }
+
     public void setMoonName(String moonName) {
         this.moonName = moonName;
     }
+
     public int getOwnerId() {
         return ownerId;
     }
+
     public void setOwnerId(int ownerId) {
         this.ownerId = ownerId;
     }
-    public void setImageData(String base64ImageData){
+
+    public void setImageData(String base64ImageData) {
         imageData = Base64.getDecoder().decode(base64ImageData);
     }
 
-    public String getImageData(){
-        if (imageData != null){
+    public String getImageData() {
+        if (imageData != null) {
             return Base64.getEncoder().encodeToString(imageData);
         } else {
             return null;
         }
     }
 
-    public byte[] imageDataAsByteArray(){
-        if(imageData != null){
+    public byte[] imageDataAsByteArray() {
+        if (imageData != null) {
             return imageData;
         } else {
             return null;
         }
     }
+
     @Override
     public String toString() {
         return "Moon [moonId=" + moonId + ", moonName=" + moonName + ", ownerId=" + ownerId + "]";
     }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -69,6 +76,7 @@ public class Moon {
         result = prime * result + ownerId;
         return result;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class MoonServiceImp<T> implements MoonService<T> {
-    
+
     private MoonDao moonDao;
 
     public MoonServiceImp(MoonDao moonDao) {
@@ -31,7 +31,6 @@ public class MoonServiceImp<T> implements MoonService<T> {
         return newMoon.get();
     }
 
-
     @Override
     public Moon selectMoon(T idOrName) {
         Optional<Moon> moon;
@@ -42,7 +41,7 @@ public class MoonServiceImp<T> implements MoonService<T> {
         } else {
             throw new MoonFail("Identifier must be an Integer or String");
         }
-        if(moon.isPresent()) {
+        if (moon.isPresent()) {
             return moon.get();
         } else {
             throw new MoonFail("Moon not found");

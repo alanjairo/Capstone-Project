@@ -36,7 +36,7 @@ public class JavalinSetup {
 
     final public static ViewController viewController = new ViewController();
 
-    public static void mapRoutes(Javalin app){
+    public static void mapRoutes(Javalin app) {
 
         /*
          * Mapping Authentication and exception handling
@@ -51,7 +51,7 @@ public class JavalinSetup {
 
         // for background image
         app.get("/background", viewController::backgroundImage);
-        
+
         /*
          * Mapping Pages to Javalin app
          */
@@ -89,5 +89,5 @@ public class JavalinSetup {
         app.post("/planetarium/moon", moonController::createMoon);
         app.delete("/planetarium/moon/{identifier}", moonController::deleteMoon);
     }
-    
+
 }
