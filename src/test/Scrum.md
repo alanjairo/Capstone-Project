@@ -1,0 +1,39 @@
+# Scrum checklist
+- update on previous day's work
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- inform team of today's work focus
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- discuss blockers
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+
+## 15 Aug - Thurs d01
+- update on previous day's work
+    - Justin - none, project assigned
+    - Alex - none, project assigned
+    - Alan - none, project assigned
+    - Femi - none, project assigned
+    - Kevin - none, project assigned
+- inform team of today's work focus 
+    - Justin - review JUnit lectures + familiarize with project code
+    - Alex - review JUnit lectures + familiarize with project code
+    - Alan - new repository; review JUnit lectures + familiarize with project code
+    - Femi - review JUnit lectures + familiarize with project code
+    - Kevin - review JUnit lectures + familiarize with project code
+- discuss blockers
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
