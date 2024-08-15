@@ -18,7 +18,7 @@
     - Femi -
     - Kevin -
 
-## 15 Aug - Thurs d01
+## 15 Aug - Thurs d1
 - update on previous day's work
     - Justin - none, project assigned
     - Alex - none, project assigned
@@ -37,3 +37,197 @@
     - Alan -
     - Femi -
     - Kevin -
+
+## 16 Aug - Fri d2
+- update on previous day's work
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- inform team of today's work focus
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- discuss blockers
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+## 19 Aug - Mon d3
+- update on previous day's work
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- inform team of today's work focus
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- discuss blockers
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+## 20 Aug - Tues d4
+- update on previous day's work
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- inform team of today's work focus
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- discuss blockers
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+## 21 Aug - Wed d5
+- update on previous day's work
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- inform team of today's work focus
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- discuss blockers
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+## 22 Aug - Thurs d6
+- update on previous day's work
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- inform team of today's work focus
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- discuss blockers
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+## 23 Aug - Fri d7
+- update on previous day's work
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- inform team of today's work focus
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- discuss blockers
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+## 26 Aug - Mon d8
+- update on previous day's work
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- inform team of today's work focus
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- discuss blockers
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+## 27 Aug - Tues d9
+- update on previous day's work
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- inform team of today's work focus
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- discuss blockers
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+## 28 Aug - Wed d10
+- update on previous day's work
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- inform team of today's work focus
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- discuss blockers
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+## 29 Aug - Thurs d11
+- update on previous day's work
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- inform team of today's work focus
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+- discuss blockers
+    - Justin - 
+    - Alex -
+    - Alan -
+    - Femi -
+    - Kevin -
+## 30 Aug - Fri d12
+Presentation
+
