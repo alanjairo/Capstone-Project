@@ -20,20 +20,6 @@ public class DeletePlanetSteps {
 
     public static String alertText;
 
-//    private static boolean isLoggedIn = false;
-//
-//    @Before
-//    public void ensureLoggedIn() {
-//        if(!isLoggedIn) {
-//            TestRun.startPage.goToStartPage();
-//            TestRun.startPage.sendPasswordInput("Batman");
-//            TestRun.startPage.sendPasswordInput("I am the night");
-//            TestRun.startPage.clickLoginButton();
-//            isLoggedIn = true;
-//        }
-//    }
-
-
     @Given("A planet name {string} exists in the Planetarium homepage")
     public void a_planet_name_exists_in_the_Planetarium_homepage(String string) {
         // Write code here that turns the phrase above into concrete actions
@@ -70,7 +56,8 @@ public class DeletePlanetSteps {
         Alert alert = TestRun.driver.switchTo().alert();
         alertText = alert.getText();
         wait.dismiss();
-        Assert.assertTrue("The user is alerted to planet deletion failure", alertText.contains("Failed to delete planet with name"));
+        Assert.assertTrue("The user is alerted to planet deletion failure",
+                alertText.contains("Failed to delete planet with name"));
     }
 
     @When("a planet name {string} exists in the planetarium")
@@ -83,6 +70,7 @@ public class DeletePlanetSteps {
     public void a_planet_named_does_not_exist_in_the_Planetarium_homepage(String string) {
         Assert.assertFalse(TestRun.planetariumPage.verifyPlanetExists(string));
     }
+
     @Given("a planet name {string} is an INT higher than the highest existing ID")
     public void a_planet_name_is_an_int_higher_than_the_highest_existing_ID(String string) {
         boolean highestExists = TestRun.planetariumPage.verifyHighestPlanetElement(string);

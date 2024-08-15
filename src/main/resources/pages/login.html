@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Planetarium Login</title>
   <style>
@@ -13,6 +14,7 @@
       justify-content: center;
       height: 100vh;
     }
+
     .container {
       background-color: #333333;
       padding: 20px;
@@ -20,15 +22,18 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
       width: 300px;
     }
+
     .container input[type="text"],
     .container input[type="password"] {
-      width: calc(100% - 20px); /* Adjusted width to account for padding */
+      width: calc(100% - 20px);
+      /* Adjusted width to account for padding */
       padding: 10px;
       margin-bottom: 10px;
       border: none;
       border-radius: 3px;
       box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
     }
+
     .container input[type="submit"] {
       width: 100%;
       padding: 10px;
@@ -38,6 +43,7 @@
       border-radius: 3px;
       cursor: pointer;
     }
+
     .container a {
       color: white;
       text-decoration: underline;
@@ -45,6 +51,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>Planetarium Login</h1>
@@ -58,7 +65,7 @@
 </body>
 <script>
 
-  async function login(){
+  async function login() {
     const username = document.getElementById('usernameInput').value;
     const password = document.getElementById('passwordInput').value;
 
@@ -68,18 +75,18 @@
     }
 
     const loginData = {
-        username: username,
-        password: password
+      username: username,
+      password: password
     };
 
     const loginBody = JSON.stringify(loginData);
 
     const response = await fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: headersList,
-        credentials: 'include',
-        body: loginBody
-    }) 
+      method: 'POST',
+      headers: headersList,
+      credentials: 'include',
+      body: loginBody
+    })
     if (response.status === 202) {
       const data = await response.json();
       sessionStorage.setItem("user", data.username)
@@ -90,9 +97,10 @@
     }
   }
 
-  document.getElementById('loginForm').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent the default form submission behavior
-      login();
+  document.getElementById('loginForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+    login();
   });
-  </script>
+</script>
+
 </html>

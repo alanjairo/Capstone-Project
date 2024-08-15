@@ -66,13 +66,13 @@ public class AddMoonSteps {
     }
 
     @Then("the user is alerted that the moon was failed to be added")
-    public void the_user_is_alerted_error(){
+    public void the_user_is_alerted_error() {
         try {
-            Alert wait = new WebDriverWait(TestRun.driver, Duration.ofSeconds(2)).until(ExpectedConditions.alertIsPresent());
+            Alert wait = new WebDriverWait(TestRun.driver, Duration.ofSeconds(2))
+                    .until(ExpectedConditions.alertIsPresent());
             if (wait.getText().contentEquals("Something went wrong, please try again"))
                 wait.dismiss();
-        }catch (TimeoutException e)
-        {
+        } catch (TimeoutException e) {
             Assert.fail("Something went wrong");
         }
     }
@@ -84,16 +84,14 @@ public class AddMoonSteps {
         boolean planetNameExists = TestRun.planetariumPage.verifyPlanetExists(string);
         boolean nameExistsInBothCelestialBodies = moonExists && planetNameExists;
 
-        if(nameExistsInBothCelestialBodies == true)
-        {
+        if (nameExistsInBothCelestialBodies == true) {
             Assert.assertFalse("There exists name both in Planet and Moon", nameExistsInBothCelestialBodies);
-        }
-        else if (nameExistsInBothCelestialBodies == false) {
+        } else if (nameExistsInBothCelestialBodies == false) {
             if (moonExists == true)
                 Assert.assertTrue("Moon does not exists", moonExists);
             else if (planetNameExists == true)
                 Assert.assertTrue("Name already exists in Planet", planetNameExists);
-        Assert.assertTrue("Moon data is missing", moonExists);
+            Assert.assertTrue("Moon data is missing", moonExists);
         }
     }
 
@@ -101,5 +99,5 @@ public class AddMoonSteps {
     public void the_user_verifies_no_moon(String string) {
         boolean moonExists = TestRun.planetariumPage.verifyMoonExists(string);
         Assert.assertFalse(string + " does exist", moonExists);
-        }
     }
+}

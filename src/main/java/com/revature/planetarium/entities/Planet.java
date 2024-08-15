@@ -1,58 +1,63 @@
 package com.revature.planetarium.entities;
 
-
 import java.util.Base64;
 
 public class Planet {
-    
 
     private int planetId;
     private String planetName;
     private int ownerId;
     private byte[] imageData;
-    
+
     public int getPlanetId() {
         return planetId;
     }
+
     public void setPlanetId(int planetId) {
         this.planetId = planetId;
     }
+
     public String getPlanetName() {
         return planetName;
     }
+
     public void setPlanetName(String planetName) {
         this.planetName = planetName;
     }
+
     public int getOwnerId() {
         return ownerId;
     }
+
     public void setOwnerId(int ownerId) {
         this.ownerId = ownerId;
     }
 
-    public void setImageData(String base64ImageData){
+    public void setImageData(String base64ImageData) {
         imageData = Base64.getDecoder().decode(base64ImageData);
     }
 
-    public String getImageData(){
-        if (imageData != null){
+    public String getImageData() {
+        if (imageData != null) {
             return Base64.getEncoder().encodeToString(imageData);
         } else {
             return null;
         }
     }
 
-    public byte[] imageDataAsByteArray(){
-        if(imageData != null){
+    public byte[] imageDataAsByteArray() {
+        if (imageData != null) {
             return imageData;
         } else {
             return null;
         }
     }
+
     @Override
     public String toString() {
         return "Planet [planetId=" + planetId + ", planetName=" + planetName + ", ownerId=" + ownerId + "]";
     }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -62,6 +67,7 @@ public class Planet {
         result = prime * result + ownerId;
         return result;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

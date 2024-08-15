@@ -33,7 +33,7 @@ public class PlanetController {
         try {
             String identifier = ctx.pathParam("identifier");
             Planet planet;
-            if(identifier.matches("^[0-9]+$")) {
+            if (identifier.matches("^[0-9]+$")) {
                 planet = planetService.selectPlanet(Integer.parseInt(identifier));
             } else {
                 planet = planetService.selectPlanet(identifier);
@@ -51,7 +51,7 @@ public class PlanetController {
             Planet planet = ctx.bodyAsClass(Planet.class);
             Planet createdPlanet = planetService.createPlanet(planet);
             ctx.json(createdPlanet);
-            ctx.status(201);            
+            ctx.status(201);
         } catch (PlanetFail e) {
             ctx.result(e.getMessage());
             ctx.status(400);
@@ -59,7 +59,7 @@ public class PlanetController {
 
     }
 
-    public void updatePlanet(Context ctx){
+    public void updatePlanet(Context ctx) {
         try {
             Planet planet = ctx.bodyAsClass(Planet.class);
             Planet updatedPlanet = planetService.updatePlanet(planet);
@@ -76,7 +76,7 @@ public class PlanetController {
         try {
             String identifier = ctx.pathParam("identifier");
             String responseMessage;
-            if(identifier.matches("^[0-9]+$")) {
+            if (identifier.matches("^[0-9]+$")) {
                 responseMessage = planetService.deletePlanet(Integer.parseInt(identifier));
             } else {
                 responseMessage = planetService.deletePlanet(identifier);

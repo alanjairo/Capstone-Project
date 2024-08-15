@@ -15,8 +15,9 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public Optional<User> createUser(User newUser) {
-        try (Connection conn = DatabaseConnector.getConnection(); 
-             PreparedStatement stmt = conn.prepareStatement("INSERT INTO users (username, password) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)){
+        try (Connection conn = DatabaseConnector.getConnection();
+                PreparedStatement stmt = conn.prepareStatement("INSERT INTO users (username, password) VALUES (?, ?)",
+                        Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, newUser.getUsername());
             stmt.setString(2, newUser.getPassword());
             stmt.executeUpdate();
@@ -36,7 +37,7 @@ public class UserDaoImp implements UserDao {
     @Override
     public Optional<User> findUserByUsername(String username) {
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE username = ?")) {
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE username = ?")) {
             stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -53,6 +54,5 @@ public class UserDaoImp implements UserDao {
             throw new UserFail(e.getMessage());
         }
     }
-
 
 }

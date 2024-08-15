@@ -33,7 +33,7 @@ public class MoonController {
         try {
             String identifier = ctx.pathParam("identifier");
             Moon moon;
-            if(identifier.matches("^[0-9]+$")) {
+            if (identifier.matches("^[0-9]+$")) {
                 moon = moonService.selectMoon(Integer.parseInt(identifier));
             } else {
                 moon = moonService.selectMoon(identifier);
@@ -62,7 +62,7 @@ public class MoonController {
         try {
             String identifier = ctx.pathParam("identifier");
             String responseMessage;
-            if(identifier.matches("^[0-9]+$")) {
+            if (identifier.matches("^[0-9]+$")) {
                 responseMessage = moonService.deleteMoon(Integer.parseInt(identifier));
             } else {
                 responseMessage = moonService.deleteMoon(identifier);

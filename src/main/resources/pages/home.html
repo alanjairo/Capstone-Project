@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Home</title>
     <style>
@@ -8,7 +9,8 @@
             border-collapse: collapse;
         }
 
-        th, td {
+        th,
+        td {
             padding: 8px;
             text-align: left;
             border-bottom: 1px solid #ddd;
@@ -37,9 +39,11 @@
         .submit-button {
             margin-top: 10px;
         }
+
         #deleteContainer {
             margin-top: 20px;
         }
+
         #deleteInput {
             width: 300px;
             padding: 5px;
@@ -49,25 +53,28 @@
             margin-left: 10px;
             padding: 5px 10px;
         }
+
         .logout-button {
             position: fixed;
             top: 10px;
             right: 10px;
         }
 
-        .center{
+        .center {
             margin: auto;
             width: 50%;
             padding: 10px;
             background-color: rgba(192, 192, 192, 0.85);
             text-align: center;
-            
+
         }
-        .heading{
+
+        .heading {
             display: inline-block;
         }
     </style>
 </head>
+
 <body>
     <button class="logout-button" id="logoutButton" onclick="logout()">Logout</button>
     <div class="center">
@@ -80,7 +87,7 @@
             <input type="text" id="deleteInput" placeholder="name for celestial body to be deleted">
             <button id="deleteButton" onclick="deleteCelestial()">Delete</button>
         </div>
-        <div id="inputContainer"></div>        
+        <div id="inputContainer"></div>
     </div>
     <div class="center" style="border: 3px solid black;">
         <table id="celestialTable">
@@ -90,13 +97,13 @@
                 <th>Name</th>
                 <th>Owner</th>
             </tr>
-        </table>        
+        </table>
     </div>
     <script>
-        
+
         populateCelestialTable();
         greeting.textContent = `Welcome to the Home Page ${sessionStorage.getItem("user")}`
-        document.getElementById('locationSelect').addEventListener('change', function() {
+        document.getElementById('locationSelect').addEventListener('change', function () {
             let selectedValue = this.value;
             let inputContainer = document.getElementById('inputContainer');
             inputContainer.innerHTML = '';
@@ -108,30 +115,30 @@
         });
 
         async function populateCelestialTable() {
-        document.getElementById('celestialTable').innerHTML = '<tr><th>Type</th><th>ID</th><th>Name</th><th>Owner</th></tr>';
-        const response = await fetch('http://localhost:8080/planetarium/planet', {credentials: 'include'});
-        if (response.ok) {
-            const data = await response.json();
-            console.log(data);
-            const table = document.getElementById('celestialTable');
-            data.forEach(planet => {
-                const row = table.insertRow();
-                const typeCell = row.insertCell(0);
-                const idCell = row.insertCell(1);
-                const nameCell = row.insertCell(2);
-                const ownerCell = row.insertCell(3);
-                const imageCell = row.insertCell(4);
-                typeCell.textContent = 'planet';
-                idCell.textContent = planet.planetId;
-                nameCell.textContent = planet.planetName;
-                ownerCell.textContent = planet.ownerId;
-                const planetImageElement = document.createElement('img');
-                planetImageElement.src = `data:image/jpeg;base64,${planet.imageData}`;
-                imageCell.appendChild(planetImageElement);
+            document.getElementById('celestialTable').innerHTML = '<tr><th>Type</th><th>ID</th><th>Name</th><th>Owner</th></tr>';
+            const response = await fetch('http://localhost:8080/planetarium/planet', { credentials: 'include' });
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+                const table = document.getElementById('celestialTable');
+                data.forEach(planet => {
+                    const row = table.insertRow();
+                    const typeCell = row.insertCell(0);
+                    const idCell = row.insertCell(1);
+                    const nameCell = row.insertCell(2);
+                    const ownerCell = row.insertCell(3);
+                    const imageCell = row.insertCell(4);
+                    typeCell.textContent = 'planet';
+                    idCell.textContent = planet.planetId;
+                    nameCell.textContent = planet.planetName;
+                    ownerCell.textContent = planet.ownerId;
+                    const planetImageElement = document.createElement('img');
+                    planetImageElement.src = `data:image/jpeg;base64,${planet.imageData}`;
+                    imageCell.appendChild(planetImageElement);
 
-            });
-        }
-        const moonResponse = await fetch('http://localhost:8080/planetarium/moon', {credentials: 'include'});
+                });
+            }
+            const moonResponse = await fetch('http://localhost:8080/planetarium/moon', { credentials: 'include' });
             if (moonResponse.ok) {
                 const moonData = await moonResponse.json();
                 console.log(moonData);
@@ -153,7 +160,7 @@
                 });
             }
         }
-        
+
         async function deleteCelestial() {
             const selectedOption = document.getElementById('locationSelect').value;
             const identifier = document.getElementById('deleteInput').value;
@@ -179,11 +186,11 @@
         }
 
         async function logout() {
-            const response = await fetch('http://localhost:8080/logout', {method: "POST", credentials: 'include'});
+            const response = await fetch('http://localhost:8080/logout', { method: "POST", credentials: 'include' });
             if (response.status === 401) {
                 sessionStorage.removeItem("user");
                 sessionStorage.removeItem("userId");
-                window.location.replace("http://localhost:8080");            
+                window.location.replace("http://localhost:8080");
             } else {
                 alert("Something went wrong, please try again");
             }
@@ -195,11 +202,11 @@
                 if (element.files.length > 0) {
                     let file = element.files[0];
                     let reader = new FileReader();
-                    reader.onload = function() {
+                    reader.onload = function () {
                         let base64String = reader.result.split(",")[1];
                         resolve(base64String);
                     }
-                    reader.onerror = function() {
+                    reader.onerror = function () {
                         reject(new Error("Failed to read file"));
                     }
                     reader.readAsDataURL(file);
@@ -209,7 +216,7 @@
             });
         }
 
-        function createPlanetInputs(){
+        function createPlanetInputs() {
             let planetNameInput = document.createElement('input');
             planetNameInput.type = 'text';
             planetNameInput.id = 'planetNameInput';
@@ -232,7 +239,7 @@
             inputContainer.appendChild(submitButton);
         }
 
-        function createMoonInputs(){
+        function createMoonInputs() {
             let moonNameInput = document.createElement('input');
             moonNameInput.type = 'text';
             moonNameInput.id = 'moonNameInput';
@@ -262,34 +269,34 @@
             inputContainer.appendChild(submitButton);
         }
 
-        async function createPlanet(){
+        async function createPlanet() {
             let planetName = document.getElementById('planetNameInput').value;
             let planetImageInput = document.getElementById('planetImageInput');
             let imageData = await convertToBase64(planetImageInput);
             const bodyData = {
-                    "planetName": planetName,
-                    "ownerId": sessionStorage.getItem("userId"),
-                    "imageData": imageData
-                }
-                const bodyJson = JSON.stringify(bodyData);
-                const headersList = {
-                    "Accept": "*/*",
-                    "Content-Type": "application/json"
-                }
-                const response = await fetch('http://localhost:8080/planetarium/planet', {
-                    method: 'POST',
-                    body: bodyJson,
-                    headers: headersList,
-                    credentials: 'include'
-                })
-                if (response.status === 201) {
-                    populateCelestialTable();
-                } else {
-                    alert("Something went wrong, please try again");
-                }  
+                "planetName": planetName,
+                "ownerId": sessionStorage.getItem("userId"),
+                "imageData": imageData
+            }
+            const bodyJson = JSON.stringify(bodyData);
+            const headersList = {
+                "Accept": "*/*",
+                "Content-Type": "application/json"
+            }
+            const response = await fetch('http://localhost:8080/planetarium/planet', {
+                method: 'POST',
+                body: bodyJson,
+                headers: headersList,
+                credentials: 'include'
+            })
+            if (response.status === 201) {
+                populateCelestialTable();
+            } else {
+                alert("Something went wrong, please try again");
+            }
         }
 
-        async function createMoon(){
+        async function createMoon() {
             let moonName = document.getElementById('moonNameInput').value;
             let orbitedPlanet = document.getElementById('orbitedPlanetInput').value;
             let moonImageInput = document.getElementById('moonImageInput');
@@ -314,13 +321,13 @@
                 populateCelestialTable();
             } else {
                 alert("Something went wrong, please try again");
-            }             
+            }
         }
-       
+
         function displayImageFromBase64(base64Data, imgElement, callback) {
             if (base64Data != null) {
                 const reader = new FileReader();
-                reader.onload = function() {
+                reader.onload = function () {
                     const imageUrl = URL.createObjectURL(new Blob([reader.result], { type: 'image/jpeg' }));
                     imgElement.src = imageUrl;
                     if (typeof callback === 'function') {
@@ -331,30 +338,30 @@
                 reader.readAsArrayBuffer(new Blob([atob(base64Data)]));
             }
         }
-    async function setBackgroundImageWithScrolling(url) {
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+        async function setBackgroundImageWithScrolling(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                response.text().then(function (imageData) {
+                    console.log(imageData); // Debug output
+                    document.body.style.backgroundImage = `url(data:image/jpg;base64,${imageData})`;
+                    document.body.style.backgroundSize = 'auto 100%';
+                    document.body.style.backgroundRepeat = 'repeat-x';
+                    document.body.style.backgroundPosition = 'left top';
+                    document.body.style.animation = 'scrollBackground 30s linear infinite';
+                });
+
+
+            } catch (error) {
+                console.error('Error:', error);
             }
-            response.text().then(function (imageData) {
-                console.log(imageData); // Debug output
-                document.body.style.backgroundImage = `url(data:image/jpg;base64,${imageData})`;
-                document.body.style.backgroundSize = 'auto 100%';
-                document.body.style.backgroundRepeat = 'repeat-x';
-                document.body.style.backgroundPosition = 'left top';
-                document.body.style.animation = 'scrollBackground 30s linear infinite';                
-            });
-
-
-        } catch (error) {
-            console.error('Error:', error);
         }
-    }
 
-    // Define the keyframes for scrolling background animation
-    const styleElement = document.head.querySelector('style');
-    const keyframes = `
+        // Define the keyframes for scrolling background animation
+        const styleElement = document.head.querySelector('style');
+        const keyframes = `
     @keyframes scrollBackground {
         0% {
             background-position: left top;
@@ -364,19 +371,20 @@
         }
     }`;
 
-    // Append the keyframes to the style element if it exists
-    if (styleElement) {
-        styleElement.innerHTML += keyframes;
-    }
+        // Append the keyframes to the style element if it exists
+        if (styleElement) {
+            styleElement.innerHTML += keyframes;
+        }
 
-    // window.addEventListener('resize', function() {
-    //     const viewportWidth = window.innerWidth;
-    //     document.body.style.backgroundSize = `${viewportWidth}px auto`;
-    // });
+        // window.addEventListener('resize', function() {
+        //     const viewportWidth = window.innerWidth;
+        //     document.body.style.backgroundSize = `${viewportWidth}px auto`;
+        // });
 
-    // Call the function with the URL of the image
-    setBackgroundImageWithScrolling('http://localhost:8080/background');
-</script>
+        // Call the function with the URL of the image
+        setBackgroundImageWithScrolling('http://localhost:8080/background');
+    </script>
     </script>
 </body>
+
 </html>
