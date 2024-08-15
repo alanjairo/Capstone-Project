@@ -1,0 +1,26 @@
+<!-- Config file from: https://github.com/EricTrainingRev/221205-SRE/blob/main/Java_Notes/boot/src/main/resources/logback.xml -->
+<configuration>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <!-- the file tags tells logback where we want our log file to be saved -->
+        <file>logs/staticLogs.log</file>
+        <!-- the append tag tells Logback whether to append the file or create a new one each time the app starts -->
+        <append>true</append>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <!-- <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern> -->
+            <includeMdcKeyName>METHOD</includeMdcKeyName>
+            <includeMdcKeyName>URI</includeMdcKeyName>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are how you tell logback how to format your logs -->
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
