@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import com.revature.Setup;
 import com.revature.planetarium.entities.User;
+import com.revature.planetarium.exceptions.UserFail;
 
 import static org.junit.Assert.*;
 
@@ -54,4 +55,22 @@ public class UserDaoImpTest {
     public void findUserByUsernameNegative() {
         Assert.assertEquals(dao.findUserByUsername("userDoesNotExist"), Optional.empty());
     }
+
+    @Test
+    public void createUserDuplicateUsername() {
+        User duplicateUser = new User(6, "Batman", "duplicatePassword");
+        UserFail e = Assert.assertThrows(UserFail.class, () -> {
+            dao.createUser(duplicateUser);
+        });
+        System.out.println(e.getMessage());
+        Assert.assertEquals("[SQLITE_CONSTRAINT_UNIQUE] A UNIQUE constraint failed (UNIQUE constraint failed: users.username)", e.getMessage());
+    }
+
+    // @Test(expected = UserFail.class)
+    // public void createUserDuplicateUsernameShort() {
+    //     User duplicateUser = new User(6, "Batman", "duplicatePassword");
+    //     dao.createUser(duplicateUser);
+    // }
+
+    
 }
