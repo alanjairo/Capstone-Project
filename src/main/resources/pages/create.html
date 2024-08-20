@@ -83,7 +83,7 @@
           alert(`Account creation failed with username "${username}" and password "${password}"`);
         }
       })
-      .catch(error => {
+      .catch(error => { // TODO: handle error
         alert("Something went wrong, please try again")
         console.error('Error:', error);
       });
