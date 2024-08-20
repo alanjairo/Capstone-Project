@@ -49,4 +49,9 @@ public class UserDaoImpTest {
     public void findUserByUsernamePositive() {
         Assert.assertEquals(dao.findUserByUsername("Batman"), Optional.of(existingUser));
     }
+
+    @Test
+    public void findUserByUsernameNegative() {
+        Assert.assertEquals(dao.findUserByUsername("userDoesNotExist"), Optional.empty());
+    }
 }
