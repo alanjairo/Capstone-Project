@@ -126,7 +126,7 @@
     - Femi -
     - Kevin -
 - inform team of today's work focus
-    - Justin - interview prep + repository layer (user)
+    - Justin - interview prep + repository layer (user) + moon service layer
     - Alex - interview prep (inteview 22 aug)
     - Alan - interview prep + PlanetServiceImpTest
     - Femi - interview prep + moon dao
