@@ -120,17 +120,17 @@
 
 ## 22 Aug - Thurs d6
 - update on previous day's work
-    - Justin - interview prep + repository layer (user)
-    - Alex - interview prep (inteview 22 aug)
-    - Alan - interview prep + PlanetServiceImpTest
-    - Femi - interview prep + moon dao
-    - Kevin - interview prep + planet dao
-- inform team of today's work focus
     - Justin - 
     - Alex -
     - Alan -
     - Femi -
     - Kevin -
+- inform team of today's work focus
+    - Justin - interview prep + repository layer (user)
+    - Alex - interview prep (inteview 22 aug)
+    - Alan - interview prep + PlanetServiceImpTest
+    - Femi - interview prep + moon dao
+    - Kevin - interview prep + planet dao
 - discuss blockers
     - Justin - 
     - Alex -
