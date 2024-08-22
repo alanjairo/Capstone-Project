@@ -86,17 +86,17 @@
     - Femi - no additional project work (study for interviews)
     - Kevin - no additional project work (study for interviews)
 - inform team of today's work focus
-    - Justin - Repository(?) Layer pair programming
-    - Alex -
-    - Alan -
-    - Femi -
-    - Kevin -
+    - Justin - Repository Layer pair programming (user)
+    - Alex - Repository Layer pair programming (user)
+    - Alan - Repository Layer pair programming (user)
+    - Femi - Repository Layer pair programming (user)
+    - Kevin - Repository Layer pair programming (user)
 - discuss blockers
-    - Justin - 
-    - Alex -
-    - Alan -
-    - Femi -
-    - Kevin -
+    - Justin - N/A
+    - Alex - N/A
+    - Alan - N/A
+    - Femi - N/A
+    - Kevin - N/A
 
 ## 21 Aug - Wed d5
 - update on previous day's work
@@ -106,13 +106,13 @@
     - Femi -
     - Kevin -
 - inform team of today's work focus
-    - Justin - 
-    - Alex -
-    - Alan -
-    - Femi -
-    - Kevin -
+    - Justin - interview prep + repository layer (user)
+    - Alex - interview prep (inteview 22 aug)
+    - Alan - interview prep + PlanetServiceImpTest
+    - Femi - interview prep + moon dao
+    - Kevin - interview prep + planet dao
 - discuss blockers
-    - Justin - 
+    - Justin - controler layer API testing
     - Alex -
     - Alan -
     - Femi -
@@ -126,11 +126,11 @@
     - Femi -
     - Kevin -
 - inform team of today's work focus
-    - Justin - 
-    - Alex -
-    - Alan -
-    - Femi -
-    - Kevin -
+    - Justin - interview prep + repository layer (user) + moon service layer
+    - Alex - interview prep (inteview 22 aug)
+    - Alan - interview prep + PlanetServiceImpTest
+    - Femi - interview prep + moon dao
+    - Kevin - interview prep + planet dao
 - discuss blockers
     - Justin - 
     - Alex -
