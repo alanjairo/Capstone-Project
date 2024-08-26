@@ -46,6 +46,13 @@ public class UserDaoImpTest {
     }
 
     // CREATE USER TESTS - NEGATIVE
+    
+    // @Test(expected = UserFail.class)
+    // public void createUserDuplicateUsernameShort() {
+    //     User duplicateUser = new User(6, "Batman", "duplicatePassword");
+    //     dao.createUser(duplicateUser);
+    // }
+
     @Test
     public void createUserNegativeDuplicateUsername() {
         User duplicateUser = new User(6, "Batman", "duplicatePassword");
@@ -82,11 +89,6 @@ public class UserDaoImpTest {
                 e.getMessage());
     }
 
-    // @Test(expected = UserFail.class)
-    // public void createUserDuplicateUsernameShort() {
-    //     User duplicateUser = new User(6, "Batman", "duplicatePassword");
-    //     dao.createUser(duplicateUser);
-    // }
 
     // FIND USER TESTS - POSITIVE
     @Test
