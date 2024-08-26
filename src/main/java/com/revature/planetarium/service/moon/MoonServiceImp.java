@@ -31,7 +31,6 @@ public class MoonServiceImp<T> implements MoonService<T> {
         return newMoon.get();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Moon selectMoon(T idOrName) {
         Optional<Moon> moon;
