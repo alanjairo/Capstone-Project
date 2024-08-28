@@ -18,7 +18,7 @@ import java.util.Optional;
 public class PlanetServiceImpTest<T> {
 
     private PlanetDaoImp planetDaoImp;
-    
+
     private PlanetServiceImp<T> planetServiceImp;
 
     private Planet newPlanetTestData;
@@ -31,8 +31,6 @@ public class PlanetServiceImpTest<T> {
     private Planet planetTestFailTL;
     private Planet planetTestFailNU;
     private List<Planet> existingPlanets;
-
-
 
     @Before
     public void setUp() throws Exception {
@@ -70,7 +68,8 @@ public class PlanetServiceImpTest<T> {
     public void createPlanetPositive() {
         Mockito.when(planetDaoImp.readPlanet(newPlanetTestData.getPlanetName())).thenReturn(Optional.empty());
         Mockito.when(planetDaoImp.createPlanet(newPlanetTestData)).thenReturn(Optional.of(newPlanetTestData));
-        Assert.assertEquals("Planet [planetId=4, planetName=TestDataPlanetName, ownerId=1]", planetServiceImp.createPlanet(newPlanetTestData).toString());
+        Assert.assertEquals("Planet [planetId=4, planetName=TestDataPlanetName, ownerId=1]",
+                planetServiceImp.createPlanet(newPlanetTestData).toString());
         Mockito.verify(planetDaoImp).readPlanet(newPlanetTestData.getPlanetName());
         Mockito.verify(planetDaoImp).createPlanet(newPlanetTestData);
     }
@@ -78,8 +77,9 @@ public class PlanetServiceImpTest<T> {
     @Test
     public void createPlanetNegNameTooLong() {
         Mockito.when(planetDaoImp.readPlanet(negPlanetTestNameDataTL.getPlanetName())).thenReturn(Optional.empty());
-        Mockito.when(planetDaoImp.createPlanet(negPlanetTestNameDataTL)).thenReturn(Optional.of(negPlanetTestNameDataTL));
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        Mockito.when(planetDaoImp.createPlanet(negPlanetTestNameDataTL))
+                .thenReturn(Optional.of(negPlanetTestNameDataTL));
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             planetServiceImp.createPlanet(negPlanetTestNameDataTL);
         });
         Assert.assertEquals("Planet name must be between 1 and 30 characters", e.getMessage());
@@ -93,9 +93,10 @@ public class PlanetServiceImpTest<T> {
         negPlanetTestNameDataNU.setPlanetId(6);
         negPlanetTestNameDataNU.setPlanetName("TestDataPlanetName");
         negPlanetTestNameDataNU.setImageData("null");
-        
-        Mockito.when(planetDaoImp.readPlanet(negPlanetTestNameDataNU.getPlanetName())).thenReturn(Optional.of(negPlanetTestNameDataNU));
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+
+        Mockito.when(planetDaoImp.readPlanet(negPlanetTestNameDataNU.getPlanetName()))
+                .thenReturn(Optional.of(negPlanetTestNameDataNU));
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             planetServiceImp.createPlanet(negPlanetTestNameDataNU);
         });
         System.out.println(e.getMessage());
@@ -108,10 +109,10 @@ public class PlanetServiceImpTest<T> {
     public void createPlanetNegNameFailure() {
         negPlanetTestNameDataFail = new Planet();
         negPlanetTestNameDataFail.setPlanetName("TestDataPlanetNameFail");
-        
+
         Mockito.when(planetDaoImp.readPlanet(negPlanetTestNameDataFail.getPlanetName())).thenReturn(Optional.empty());
         Mockito.when(planetDaoImp.createPlanet(negPlanetTestNameDataFail)).thenReturn(Optional.empty());
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             planetServiceImp.createPlanet(negPlanetTestNameDataFail);
         });
         System.out.println(e.getMessage());
@@ -123,7 +124,8 @@ public class PlanetServiceImpTest<T> {
     @Test
     public void selectPlanetPosString() {
         Mockito.when(planetDaoImp.readPlanet("Earth")).thenReturn(Optional.of(planetTestData));
-        Assert.assertEquals("Planet [planetId=5, planetName=Earth, ownerId=1]", ((PlanetServiceImp<String>) planetServiceImp).selectPlanet(planetTestData.getPlanetName()).toString());
+        Assert.assertEquals("Planet [planetId=5, planetName=Earth, ownerId=1]",
+                ((PlanetServiceImp<String>) planetServiceImp).selectPlanet(planetTestData.getPlanetName()).toString());
         Mockito.verify(planetDaoImp).readPlanet(planetTestData.getPlanetName());
         Mockito.verifyNoMoreInteractions(planetDaoImp);
     }
@@ -131,7 +133,8 @@ public class PlanetServiceImpTest<T> {
     @Test
     public void selectPlanetPosInt() {
         Mockito.when(planetDaoImp.readPlanet(5)).thenReturn(Optional.of(planetTestData));
-        Assert.assertEquals("Planet [planetId=5, planetName=Earth, ownerId=1]", ((PlanetServiceImp<Integer>) planetServiceImp).selectPlanet(planetTestData.getPlanetId()).toString());
+        Assert.assertEquals("Planet [planetId=5, planetName=Earth, ownerId=1]",
+                ((PlanetServiceImp<Integer>) planetServiceImp).selectPlanet(planetTestData.getPlanetId()).toString());
         Mockito.verify(planetDaoImp).readPlanet(planetTestData.getPlanetId());
         Mockito.verifyNoMoreInteractions(planetDaoImp);
     }
@@ -139,10 +142,9 @@ public class PlanetServiceImpTest<T> {
     @Test
     public void selectPlanetNegNotFound() {
         Mockito.when(planetDaoImp.readPlanet(1)).thenReturn(Optional.empty());
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             ((PlanetServiceImp<Integer>) planetServiceImp).selectPlanet(planetTestData.getPlanetId());
-            }
-        );
+        });
         Assert.assertEquals("Planet not found", e.getMessage());
         Mockito.verify(planetDaoImp).readPlanet(planetTestData.getPlanetId());
         Mockito.verifyNoMoreInteractions(planetDaoImp);
@@ -150,11 +152,10 @@ public class PlanetServiceImpTest<T> {
 
     @Test
     public void selectPlanetNegInvalidType() {
-        //Mockito.when(planetDaoImp.readPlanet(1.234)).thenReturn(Optional.empty());
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        // Mockito.when(planetDaoImp.readPlanet(1.234)).thenReturn(Optional.empty());
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             ((PlanetServiceImp<Double>) planetServiceImp).selectPlanet(1.234);
-            }
-        );
+        });
         Assert.assertEquals("identifier must be an Integer or String", e.getMessage());
         Mockito.verifyNoInteractions(planetDaoImp);
     }
@@ -215,10 +216,10 @@ public class PlanetServiceImpTest<T> {
         planetTestFail.setPlanetId(99);
 
         Mockito.when(planetDaoImp.readPlanet(planetTestFail.getPlanetId())).thenReturn(Optional.empty());
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             planetServiceImp.updatePlanet(planetTestFail);
         });
-        Assert.assertEquals("Planet not found, could not update", e.getMessage());  
+        Assert.assertEquals("Planet not found, could not update", e.getMessage());
         Mockito.verify(planetDaoImp).readPlanet(planetTestFail.getPlanetId());
         Mockito.verifyNoMoreInteractions(planetDaoImp);
     }
@@ -231,10 +232,10 @@ public class PlanetServiceImpTest<T> {
         planetTestFailTL.setImageData("null");
 
         Mockito.when(planetDaoImp.readPlanet(planetTestFailTL.getPlanetId())).thenReturn(Optional.of(planetTestFailTL));
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             planetServiceImp.updatePlanet(planetTestFailTL);
         });
-        Assert.assertEquals("Planet name must be between 1 and 30 characters, could not update", e.getMessage());  
+        Assert.assertEquals("Planet name must be between 1 and 30 characters, could not update", e.getMessage());
         Mockito.verify(planetDaoImp).readPlanet(planetTestFailTL.getPlanetId());
         Mockito.verifyNoMoreInteractions(planetDaoImp);
     }
@@ -248,10 +249,10 @@ public class PlanetServiceImpTest<T> {
 
         Mockito.when(planetDaoImp.readPlanet(planetTestFailNU.getPlanetId())).thenReturn(Optional.of(planetTestData));
         Mockito.when(planetDaoImp.readPlanet(planetTestFailNU.getPlanetName())).thenReturn(Optional.of(planetTestData));
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             planetServiceImp.updatePlanet(planetTestFailNU);
         });
-        Assert.assertEquals("Planet name must be unique, could not update", e.getMessage());  
+        Assert.assertEquals("Planet name must be unique, could not update", e.getMessage());
         Mockito.verify(planetDaoImp).readPlanet(planetTestFailNU.getPlanetId());
         Mockito.verify(planetDaoImp).readPlanet(planetTestFailNU.getPlanetName());
         Mockito.verifyNoMoreInteractions(planetDaoImp);
@@ -266,10 +267,10 @@ public class PlanetServiceImpTest<T> {
 
         Mockito.when(planetDaoImp.readPlanet(planetTestFail.getPlanetId())).thenReturn(Optional.of(planetTestFail));
         Mockito.when(planetDaoImp.updatePlanet(planetTestFail)).thenReturn(Optional.empty());
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             planetServiceImp.updatePlanet(planetTestFail);
         });
-        Assert.assertEquals("Planet update failed, please try again", e.getMessage());  
+        Assert.assertEquals("Planet update failed, please try again", e.getMessage());
         Mockito.verify(planetDaoImp).readPlanet(planetTestFail.getPlanetId());
         Mockito.verify(planetDaoImp).updatePlanet(planetTestFail);
         Mockito.verifyNoMoreInteractions(planetDaoImp);
@@ -280,7 +281,8 @@ public class PlanetServiceImpTest<T> {
         String message = "Planet deleted successfully";
         Boolean deleted = true;
         Mockito.when(planetDaoImp.deletePlanet(planetTestData.getPlanetId())).thenReturn(deleted);
-        Assert.assertEquals(message, ((PlanetServiceImp<Integer>) planetServiceImp).deletePlanet(planetTestData.getPlanetId()));
+        Assert.assertEquals(message,
+                ((PlanetServiceImp<Integer>) planetServiceImp).deletePlanet(planetTestData.getPlanetId()));
         Mockito.verify(planetDaoImp).deletePlanet(planetTestData.getPlanetId());
         Mockito.verifyNoMoreInteractions(planetDaoImp);
     }
@@ -290,7 +292,8 @@ public class PlanetServiceImpTest<T> {
         String message = "Planet deleted successfully";
         Boolean deleted = true;
         Mockito.when(planetDaoImp.deletePlanet(planetTestData.getPlanetName())).thenReturn(deleted);
-        Assert.assertEquals(message, ((PlanetServiceImp<String>) planetServiceImp).deletePlanet(planetTestData.getPlanetName()));
+        Assert.assertEquals(message,
+                ((PlanetServiceImp<String>) planetServiceImp).deletePlanet(planetTestData.getPlanetName()));
         Mockito.verify(planetDaoImp).deletePlanet(planetTestData.getPlanetName());
         Mockito.verifyNoMoreInteractions(planetDaoImp);
     }
@@ -298,7 +301,7 @@ public class PlanetServiceImpTest<T> {
     @Test
     public void deletePlanetNegNotValid() {
         String message = "identifier must be an Integer or String";
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             ((PlanetServiceImp<Double>) planetServiceImp).deletePlanet(1.23);
         });
         Assert.assertEquals(message, e.getMessage());
@@ -310,7 +313,7 @@ public class PlanetServiceImpTest<T> {
         String message = "Planet delete failed, please try again";
         Boolean deleted = false;
         Mockito.when(planetDaoImp.deletePlanet(planetTestData.getPlanetId())).thenReturn(deleted);
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             ((PlanetServiceImp<Integer>) planetServiceImp).deletePlanet(planetTestData.getPlanetId());
         });
         Assert.assertEquals(message, e.getMessage());
@@ -323,7 +326,7 @@ public class PlanetServiceImpTest<T> {
         String message = "Planet delete failed, please try again";
         Boolean deleted = false;
         Mockito.when(planetDaoImp.deletePlanet(planetTestData.getPlanetName())).thenReturn(deleted);
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             ((PlanetServiceImp<String>) planetServiceImp).deletePlanet(planetTestData.getPlanetName());
         });
         Assert.assertEquals(message, e.getMessage());
