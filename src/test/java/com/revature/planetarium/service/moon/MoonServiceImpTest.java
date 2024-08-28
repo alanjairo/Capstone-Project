@@ -220,41 +220,108 @@ public class MoonServiceImpTest<T> {
 
     @Test
     public void updateMoonNegNameTooLong() {
-        
+        existingMoon = new Moon(1, "this name exceeds the 30 character limit for a new moonn name", 1);
+        Mockito.when(moonDao.readMoon(existingMoon.getMoonId())).thenReturn(Optional.of(existingMoon));
+        MoonFail e = Assert.assertThrows(MoonFail.class, () -> {
+            moonServiceImp.updateMoon(existingMoon);
+        });
+        Assert.assertEquals("Moon name must be between 1 and 30 characters, could not update", e.getMessage());
+        Mockito.verify(moonDao).readMoon(existingMoon.getMoonId());
+        Mockito.verifyNoMoreInteractions(moonDao);
     }
 
     @Test
     public void updateMoonNegativeNameNotUnique() {
-
+        existingMoon = new Moon(1, "this name is not unique", 1);
+        Moon moonWithSameName = new Moon(2, "this name is not unique", 1);
+        Mockito.when(moonDao.readMoon(existingMoon.getMoonId())).thenReturn(Optional.of(existingMoon));
+        Mockito.when(moonDao.readMoon(moonWithSameName.getMoonName())).thenReturn(Optional.of(moonWithSameName));
+        MoonFail e = Assert.assertThrows(MoonFail.class, () -> {
+            moonServiceImp.updateMoon(existingMoon);
+        });
+        Assert.assertEquals("Moon name must be unique, could not update", e.getMessage());
+        Mockito.verify(moonDao).readMoon(existingMoon.getMoonId());
+        Mockito.verify(moonDao).readMoon(moonWithSameName.getMoonName());
+        Mockito.verifyNoMoreInteractions(moonDao);
     }
 
+    @Test
     public void updateMoonNegativeGenericFail() {
-
+        existingMoon = new Moon(1, "this name is not unique", 1);
+        Mockito.when(moonDao.readMoon(existingMoon.getMoonId())).thenReturn(Optional.of(existingMoon));
+        Mockito.when(moonDao.readMoon(existingMoon.getMoonName())).thenReturn(Optional.of(existingMoon));
+        Mockito.when(moonDao.updateMoon(existingMoon)).thenReturn(Optional.empty());
+        MoonFail e = Assert.assertThrows(MoonFail.class, () -> {
+            moonServiceImp.updateMoon(existingMoon);
+        });
+        Assert.assertEquals("Moon update failed, please try again", e.getMessage());
+        Mockito.verify(moonDao).readMoon(existingMoon.getMoonId());
+        Mockito.verify(moonDao).readMoon(existingMoon.getMoonName());
+        Mockito.verify(moonDao).updateMoon(existingMoon);
+        Mockito.verifyNoMoreInteractions(moonDao);
     }
 
     // MOON DELETE
+    @SuppressWarnings("unchecked")
     @Test
     public void deleteMoonPos() {
-
+        String message = "Moon deleted successfully";
+        Boolean deleted = true;
+        Mockito.when(moonDao.deleteMoon(existingMoon.getMoonId())).thenReturn(deleted);
+        Assert.assertEquals(message,
+                ((MoonServiceImp<Integer>) moonServiceImp).deleteMoon(existingMoon.getMoonId()));
+        Mockito.verify(moonDao).deleteMoon(existingMoon.getMoonId());
+        Mockito.verifyNoMoreInteractions(moonDao);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void deleteMoonPosString() {
-
+        String message = "Moon deleted successfully";
+        Boolean deleted = true;
+        Mockito.when(moonDao.deleteMoon(existingMoon.getMoonName())).thenReturn(deleted);
+        Assert.assertEquals(message,
+                ((MoonServiceImp<String>) moonServiceImp).deleteMoon(existingMoon.getMoonName()));
+        Mockito.verify(moonDao).deleteMoon(existingMoon.getMoonName());
+        Mockito.verifyNoMoreInteractions(moonDao);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void deleteMoonNegInt() {
-
+        String message = "Moon delete failed, please try again";
+        Boolean deleted = false;
+        Mockito.when(moonDao.deleteMoon(existingMoon.getMoonId())).thenReturn(deleted);
+        MoonFail e = Assert.assertThrows(MoonFail.class,() -> {
+            ((MoonServiceImp<Integer>) moonServiceImp).deleteMoon(existingMoon.getMoonId());
+        });
+        Assert.assertEquals(message, e.getMessage());
+        Mockito.verify(moonDao).deleteMoon(existingMoon.getMoonId());
+        Mockito.verifyNoMoreInteractions(moonDao);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void deleteMoonNegString() {
-
+        String message = "Moon delete failed, please try again";
+        Boolean deleted = false;
+        Mockito.when(moonDao.deleteMoon(existingMoon.getMoonName())).thenReturn(deleted);
+        MoonFail e = Assert.assertThrows(MoonFail.class,() -> {
+            ((MoonServiceImp<String>) moonServiceImp).deleteMoon(existingMoon.getMoonName());
+        });
+        Assert.assertEquals(message, e.getMessage());
+        Mockito.verify(moonDao).deleteMoon(existingMoon.getMoonName());
+        Mockito.verifyNoMoreInteractions(moonDao);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void deleteMoonNegNotValid() {
-
+        String message = "Identifier must be an Integer or String";
+        MoonFail e = Assert.assertThrows(MoonFail.class,() -> {
+            ((MoonServiceImp<Double>) moonServiceImp).deleteMoon(1.234);
+        });
+        Assert.assertEquals(message, e.getMessage());
+        Mockito.verifyNoMoreInteractions(moonDao);
     }
 }
