@@ -5,7 +5,6 @@ import com.revature.planetarium.entities.Planet;
 import com.revature.planetarium.utility.DatabaseConnector;
 import org.junit.*;
 
-import javax.swing.text.html.Option;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
