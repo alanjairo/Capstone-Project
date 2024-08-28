@@ -47,7 +47,7 @@ public class PlanetServiceImpTest<T> {
 
         negPlanetTestNameDataTL = new Planet();
         negPlanetTestNameDataTL.setOwnerId(2);
-        negPlanetTestNameDataTL.setPlanetId(5);
+        negPlanetTestNameDataTL.setPlanetId(6);
         negPlanetTestNameDataTL.setPlanetName("TestDataPlanetNameIsTooLongForThisExample");
         negPlanetTestNameDataTL.setImageData("null");
 
@@ -195,15 +195,17 @@ public class PlanetServiceImpTest<T> {
     public void updatePlanetPos() {
         updatedPlanet = new Planet();
         updatedPlanet.setPlanetName("updatedPlanetName");
-        updatedPlanet.setPlanetId(1);
+        updatedPlanet.setPlanetId(5);
         updatedPlanet.setOwnerId(1);
         updatedPlanet.setImageData("null");
         
-        Mockito.when(planetDaoImp.readPlanet(planetTestData.getPlanetId())).thenReturn(Optional.of(planetTestData));
-        Mockito.when(planetDaoImp.updatePlanet(planetTestData)).thenReturn(Optional.of(updatedPlanet));
-        Assert.assertEquals(updatedPlanet, planetServiceImp.updatePlanet(planetTestData));
-        Mockito.verify(planetDaoImp).readPlanet(planetTestData.getPlanetId());
-        Mockito.verify(planetDaoImp).updatePlanet(planetTestData);
+        Mockito.when(planetDaoImp.readPlanet(updatedPlanet.getPlanetId())).thenReturn(Optional.of(planetTestData));
+        Mockito.when(planetDaoImp.readPlanet(updatedPlanet.getPlanetName())).thenReturn(Optional.empty());
+        Mockito.when(planetDaoImp.updatePlanet(updatedPlanet)).thenReturn(Optional.of(updatedPlanet));
+        Assert.assertEquals(updatedPlanet, planetServiceImp.updatePlanet(updatedPlanet));
+        Mockito.verify(planetDaoImp).readPlanet(updatedPlanet.getPlanetId());
+        Mockito.verify(planetDaoImp).readPlanet(updatedPlanet.getPlanetName());
+        Mockito.verify(planetDaoImp).updatePlanet(updatedPlanet);
         Mockito.verifyNoMoreInteractions(planetDaoImp);
     }
 
