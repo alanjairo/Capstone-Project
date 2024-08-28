@@ -67,23 +67,27 @@ public class PlanetDaoImpTest {
 
     @Test
     public void readPlanetByIdPositive() {
-        Assert.assertEquals(dao.readPlanet(1), Optional.of(existingPlanet));
+        Assert.assertEquals(Optional.of(existingPlanet), dao.readPlanet(1));
+
     }
 
     @Test
     public void readPlanetByNamePositive() {
-        Assert.assertEquals(dao.readPlanet("Earth"), Optional.of(existingPlanet));
+        Assert.assertEquals(Optional.of(existingPlanet), dao.readPlanet("Earth"));
+
     }
 
     @Test
     public void readPlanetByIdNegative() {
         //Assuming there are fewer than 50 planets
         Assert.assertEquals(dao.readPlanet(50), Optional.empty());
+        Assert.assertEquals(Optional.empty(), dao.readPlanet(50));
+
     }
 
     @Test
     public void readPlanetByNameNegative() {
-        Assert.assertEquals(dao.readPlanet("thisPlanetDoesNotExist"), Optional.empty());
+        Assert.assertEquals(Optional.empty(), dao.readPlanet("thisPlanetDoesNotExist"));
     }
 
     @Test
