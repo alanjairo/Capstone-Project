@@ -46,7 +46,6 @@ public class PlanetDaoImpTest {
 
     @Test
     public void createPlanetPositiveNoImage() {
-        //createdPlanet.setImageData("src/test/resources/Celestial-Images/planet-1.jpg");
         Optional<Planet> returnedPlanet = dao.createPlanet(createdPlanet);
         System.out.println(returnedPlanet.isPresent());
 

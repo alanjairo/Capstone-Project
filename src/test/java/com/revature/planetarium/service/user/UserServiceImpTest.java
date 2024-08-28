@@ -25,6 +25,7 @@ public class UserServiceImpTest {
     private User newUserUsernameTooLong;
     private User newUserPasswordTooLong;
     private User userNotNew;
+    private User nonAuthenticatedUser;
     private User userFail;
 
     //private List<User> premadeUsers;
@@ -95,5 +96,16 @@ public class UserServiceImpTest {
     public void authenticatePos() {
         Mockito.when(userDaoImp.findUserByUsername(newUserCredTestData.getUsername())).thenReturn(Optional.of(newUserCredTestData));
         Assert.assertEquals(newUserCredTestData, userServiceImp.authenticate(newUserCredTestData));
+    }
+
+    @Test
+    public void authenticateNeg() {
+        nonAuthenticatedUser = new User(10, "User Not in DB", "123");
+        Mockito.when(userDaoImp.findUserByUsername(nonAuthenticatedUser.getUsername())).thenReturn(Optional.empty());
+        UserFail e = Assert.assertThrows(UserFail.class, () -> {
+            userServiceImp.authenticate(nonAuthenticatedUser);
+        });
+        System.out.println(e.getMessage());
+        Assert.assertEquals("Username and/or password do not match", e.getMessage());
     }
 }

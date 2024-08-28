@@ -201,7 +201,9 @@ public class PlanetServiceImpTest<T> {
         
         Mockito.when(planetDaoImp.readPlanet(planetTestData.getPlanetId())).thenReturn(Optional.of(planetTestData));
         Mockito.when(planetDaoImp.updatePlanet(planetTestData)).thenReturn(Optional.of(updatedPlanet));
+
         Assert.assertEquals(updatedPlanet, planetServiceImp.updatePlanet(planetTestData));
+
         Mockito.verify(planetDaoImp).readPlanet(planetTestData.getPlanetId());
         Mockito.verify(planetDaoImp).updatePlanet(planetTestData);
         Mockito.verifyNoMoreInteractions(planetDaoImp);
