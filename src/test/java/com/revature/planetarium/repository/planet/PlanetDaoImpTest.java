@@ -5,9 +5,14 @@ import com.revature.planetarium.entities.Planet;
 import com.revature.planetarium.utility.DatabaseConnector;
 import org.junit.*;
 
+import javax.swing.text.html.Option;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Base64;
 import java.util.Optional;
 
 public class PlanetDaoImpTest {
@@ -41,12 +46,24 @@ public class PlanetDaoImpTest {
     }
 
     @Test
-    public void createPlanetPositive() {
+    public void createPlanetPositiveNoImage() {
         //createdPlanet.setImageData("src/test/resources/Celestial-Images/planet-1.jpg");
         Optional<Planet> returnedPlanet = dao.createPlanet(createdPlanet);
         System.out.println(returnedPlanet.isPresent());
 
         Assert.assertSame(createdPlanet, returnedPlanet.get());
+    }
+
+    @Test
+    public void createPlanetPositiveWithImage() throws IOException {
+        File imageFile = new File("src/test/resources/Celestial-Images/planet-1.jpg");
+        byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
+        String imageDataBase64 = Base64.getEncoder().encodeToString(imageBytes);
+
+        createdPlanet.setImageData(imageDataBase64);
+        Optional<Planet> returnedPlanet = dao.createPlanet(createdPlanet);
+
+        Assert.assertSame(createdPlanet, dao.createPlanet(createdPlanet).get());
     }
 
     @Test
