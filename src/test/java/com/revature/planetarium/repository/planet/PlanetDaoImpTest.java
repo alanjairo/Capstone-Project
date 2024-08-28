@@ -80,7 +80,6 @@ public class PlanetDaoImpTest {
     @Test
     public void readPlanetByIdNegative() {
         //Assuming there are fewer than 50 planets
-        Assert.assertEquals(dao.readPlanet(50), Optional.empty());
         Assert.assertEquals(Optional.empty(), dao.readPlanet(50));
 
     }
