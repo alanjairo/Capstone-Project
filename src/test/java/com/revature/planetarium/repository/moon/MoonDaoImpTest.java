@@ -6,8 +6,12 @@ import com.revature.planetarium.entities.Planet;
 import com.revature.planetarium.exceptions.MoonFail;
 import org.junit.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,13 +43,29 @@ public class MoonDaoImpTest {
         // Setup.resetTestDatabase();
     }
 
-    // I don't know why this is passing
+
     @Test
     public void createMoonPositive() {
         Optional<Moon> theNewMoon = dao.createMoon(positiveMoon);
         System.out.println(theNewMoon.isPresent());
         Assert.assertTrue(theNewMoon.isPresent());
         assertNotNull(theNewMoon.get().getMoonId());
+
+    }
+    @Test
+    public void createMoonPositiveWithImg() throws IOException {
+        File imageFile = new File("src/main/resources/images/galaxy-4.jpg");
+        byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
+        String imageDataBase64 = Base64.getEncoder().encodeToString(imageBytes);
+
+
+        Moon moon = new Moon(1, "moonWithImg", 3);
+        moon.setImageData(imageDataBase64);
+        Optional<Moon> theNewMoon = dao.createMoon(moon);
+        System.out.println(theNewMoon.isPresent());
+        Assert.assertTrue(theNewMoon.isPresent());
+        assertNotNull(theNewMoon.get().getMoonId());
+
 
     }
 
@@ -118,6 +138,7 @@ public class MoonDaoImpTest {
         assertEquals("lunaUpdated",theUpdate.get().getMoonName());
     }
 
+
     @Test(expected = MoonFail.class)
     public void updateMoonFail() {
 
@@ -128,8 +149,13 @@ public class MoonDaoImpTest {
     }
 
     @Test
-    public void deleteMoon() {
+    public void deleteMoonByName() {
         boolean result = dao.deleteMoon(dao.readMoon(1).get().getMoonName());
+        assertTrue(result);
+    }
+    @Test
+    public void deleteMoonByID() {
+        boolean result = dao.deleteMoon(dao.readMoon(1).get().getMoonId());
         assertTrue(result);
     }
 }
