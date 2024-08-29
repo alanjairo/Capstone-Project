@@ -1,6 +1,5 @@
 package com.revature.planetarium.service.moon;
 
-import java.lang.StackWalker.Option;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,7 +18,7 @@ import com.revature.planetarium.entities.Moon;
 import com.revature.planetarium.exceptions.MoonFail;
 import com.revature.planetarium.repository.moon.MoonDao;
 
-public class MoonServiceImpTest<T> {
+public class MoonServiceImpUnitTest<T> {
 
     @Mock
     private MoonDao moonDao;
