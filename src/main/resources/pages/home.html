@@ -211,7 +211,8 @@
                     }
                     reader.readAsDataURL(file);
                 } else { // TODO: Handle no file selected
-                    reject(new Error("No file selected"));
+                    // reject(new Error("No file selected"));
+                    resolve(null);
                 }
             });
         }

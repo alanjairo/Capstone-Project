@@ -46,8 +46,13 @@ public class Planet {
     }
 
     public void setImageData(String base64ImageData) {
-        imageData = Base64.getDecoder().decode(base64ImageData);
+        if (base64ImageData != null) {
+            imageData = Base64.getDecoder().decode(base64ImageData);
+        } else {
+            imageData = null;
+        }
     }
+    
 
     public String getImageData() {
         if (imageData != null) {
