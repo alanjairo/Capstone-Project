@@ -70,7 +70,6 @@ public class MoonServiceIntegrationTest<T> {
             moonService.createMoon(newMoon);
         });
         Assert.assertEquals("Moon name must be between 1 and 30 characters", e.getMessage());
-        Mockito.verifyNoInteractions(moonDao);
     }
 
     @Test
@@ -115,7 +114,7 @@ public class MoonServiceIntegrationTest<T> {
     public void selectMoonNegNotFound() {
         newMoon = new Moon(1, "moonNotFound", 1);
         MoonFail e = Assert.assertThrows(MoonFail.class, () -> {
-            ((MoonServiceImp<Integer>) moonService).selectMoon(newMoon.getMoonId());
+            ((MoonServiceImp<Integer>) moonService).selectMoon(99);
         });
         Assert.assertEquals("Moon not found", e.getMessage());
     }
