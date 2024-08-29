@@ -291,7 +291,7 @@ public class MoonServiceImpUnitTest<T> {
         String message = "Moon delete failed, please try again";
         Boolean deleted = false;
         Mockito.when(moonDao.deleteMoon(existingMoon.getMoonId())).thenReturn(deleted);
-        MoonFail e = Assert.assertThrows(MoonFail.class,() -> {
+        MoonFail e = Assert.assertThrows(MoonFail.class, () -> {
             ((MoonServiceImp<Integer>) moonServiceImp).deleteMoon(existingMoon.getMoonId());
         });
         Assert.assertEquals(message, e.getMessage());
@@ -305,7 +305,7 @@ public class MoonServiceImpUnitTest<T> {
         String message = "Moon delete failed, please try again";
         Boolean deleted = false;
         Mockito.when(moonDao.deleteMoon(existingMoon.getMoonName())).thenReturn(deleted);
-        MoonFail e = Assert.assertThrows(MoonFail.class,() -> {
+        MoonFail e = Assert.assertThrows(MoonFail.class, () -> {
             ((MoonServiceImp<String>) moonServiceImp).deleteMoon(existingMoon.getMoonName());
         });
         Assert.assertEquals(message, e.getMessage());
@@ -317,7 +317,7 @@ public class MoonServiceImpUnitTest<T> {
     @Test
     public void deleteMoonNegNotValid() {
         String message = "Identifier must be an Integer or String";
-        MoonFail e = Assert.assertThrows(MoonFail.class,() -> {
+        MoonFail e = Assert.assertThrows(MoonFail.class, () -> {
             ((MoonServiceImp<Double>) moonServiceImp).deleteMoon(1.234);
         });
         Assert.assertEquals(message, e.getMessage());
