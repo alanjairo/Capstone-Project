@@ -24,11 +24,11 @@ public class PlanetDaoImpTest {
     @BeforeClass
     public static void testDatabaseSetup() throws SQLException {
         Setup.getConnection();
-        Setup.resetTestDatabase();
     }
 
     @Before
     public void setUp() throws Exception {
+        Setup.resetTestDatabase();
         createdPlanet = new Planet();
         createdPlanet.setPlanetName("TestingPlanet");
         createdPlanet.setOwnerId(1);
