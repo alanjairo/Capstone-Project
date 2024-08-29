@@ -4,7 +4,7 @@ Feature: AddMoonsFunctionality
   #Positive Scenarios
   @SCRUM-TC-33 @JREQ-SCRUM-49
   Scenario Outline: Pos - Add Moon - Valid Inputs
-  Users should be able to add Moons with valid inputs
+    Users should be able to add Moons with valid inputs
     Given the user is logged in
     And the moon, "<moon name>" does not exist
     When the user navigates to moon on the dropdown menu
@@ -20,7 +20,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-34 @JREQ-SCRUM-50
   Scenario Outline: Pos - Add Moon - Valid Inputs - No Image
-  Users should be able to add Moons with valid inputs without image
+    Users should be able to add Moons with valid inputs without image
     Given the user is logged in
     And the moon, "<moon name>" does not exist
     When the user navigates to moon on the dropdown menu
@@ -36,7 +36,7 @@ Feature: AddMoonsFunctionality
   #Negative Scenarios
   @SCRUM-TC-35 @JREQ-SCRUM-52
   Scenario Outline: Neg - Add Moon - Not Unique - Valid Image Size - Valid ID
-  Users should not be able to add moons with invalid inputs
+    Users should not be able to add moons with invalid inputs
     Given the user is logged in
     And the moon, "<moon name>" does exist
     When the user navigates to moon on the dropdown menu
@@ -52,7 +52,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-36 @JREQ-SCRUM-53
   Scenario Outline: Neg - Add Moon - Name Too Long - Valid Image Size - Valid ID
-  Users should not be able to add moons with too long name
+    Users should not be able to add moons with too long name
     Given the user is logged in
     And the moon, "<moon name>" does not exist
     When the user navigates to moon on the dropdown menu
@@ -69,7 +69,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-37 @JREQ-SCRUM-54
   Scenario Outline: Neg - Add Moon - Name Not Unique - No Image - Valid ID
-  Users should not be able to add moons with non unique name
+    Users should not be able to add moons with non unique name
     Given the user is logged in
     And the moon, "<moon name>" does exist
     When the user navigates to moon on the dropdown menu
@@ -84,7 +84,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-38 @JREQ-SCRUM-55
   Scenario Outline: Neg - Add Moon - Name Too Long - No Image - Valid ID
-  Users should not be able to add moons with too long name
+    Users should not be able to add moons with too long name
     Given the user is logged in
     And the moon, "<moon name>" does not exist
     When the user navigates to moon on the dropdown menu
@@ -100,7 +100,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-39 @JREQ-SCRUM-56
   Scenario Outline: Neg - Add Moon - Name is Unique - Too Large Image Size - Valid ID
-  Users should not be able to add moons with invalid inputs
+    Users should not be able to add moons with invalid inputs
     Given the user is logged in
     And the moon, "<moon name>" does not exist
     When the user navigates to moon on the dropdown menu
@@ -117,7 +117,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-40 @JREQ-SCRUM-57
   Scenario Outline: Neg - Add Moon - Name Not Unique - Too Large Image Size - Valid ID
-  Users should not be able to add moons with invalid inputs
+    Users should not be able to add moons with invalid inputs
     Given the user is logged in
     And the moon, "<moon name>" does exist
     When the user navigates to moon on the dropdown menu
@@ -133,7 +133,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-41 @JREQ-SCRUM-58
   Scenario Outline: Neg - Add Moon - Name Too Long - Too Large Image Size - Valid ID
-  Users should not be able to add moons with invalid inputs
+    Users should not be able to add moons with invalid inputs
     Given the user is logged in
     And the moon, "<moon name>" does not exist
     When the user navigates to moon on the dropdown menu
@@ -145,12 +145,12 @@ Feature: AddMoonsFunctionality
     And the user is verifies the moon, "<moon name>", does not exist in table
 
     Examples:
-      | moon name                            | planet id | image src                                                 |
+      | moon name                       | planet id | image src                                         |
       | I am the Moon named Numa!!!!!!! | 1         | src/test/resources/Celestial-Images/CVYE1271.JPEG |
 
   @SCRUM-TC-42 @JREQ-SCRUM-59
   Scenario Outline: Neg - Add Moon - Name from Planet - Valid Image Size - Valid ID
-  Users should not be able to add moons with plane name
+    Users should not be able to add moons with plane name
     Given the user is logged in
     And the moon, "<moon name>" does not exist
     And the planet, "<moon name>" does exist
@@ -168,7 +168,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-43 @JREQ-SCRUM-60
   Scenario Outline: Neg - Add Moon - Name from Planet - Too Large Image Size - Valid ID
-  Users should not be able to add moons with planet name
+    Users should not be able to add moons with planet name
     Given the user is logged in
     And the moon, "<moon name>" does not exist
     And the planet, "<moon name>" does exist
@@ -186,7 +186,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-44 @JREQ-SCRUM-61
   Scenario Outline: Neg - Add Moon - Name from planet - No Image - Valid ID
-  Users should not be able to add moons with planet name
+    Users should not be able to add moons with planet name
     Given the user is logged in
     And the moon, "<moon name>" does not exist
     And the planet, "<moon name>" does exist
@@ -203,7 +203,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-51 @JREQ-SCRUM-71
   Scenario Outline: Neg - Add Moon - Name Not Unique - Valid Image Size - Invalid ID
-  Users should not be able to add moon with invalid inputs and invalid id
+    Users should not be able to add moon with invalid inputs and invalid id
     Given the user is logged in
     And the moon, "<moon name>" does exist
     When the user navigates to moon on the dropdown menu
@@ -219,7 +219,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-52 @JREQ-SCRUM-72
   Scenario Outline: Neg - Add Moon - Name Too Long - Valid Image Size - Invalid ID
-  Users should not be able to add moon with invalid inputs and invalid id
+    Users should not be able to add moon with invalid inputs and invalid id
     Given the user is logged in
     And the moon, "<moon name>" does not exist
     When the user navigates to moon on the dropdown menu
@@ -236,7 +236,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-53 @JREQ-SCRUM-73
   Scenario Outline: Neg - Add Moon - Name Not Unique - No Image - Invalid ID
-  Users should not be able to add moon with invalid inputs and invalid id
+    Users should not be able to add moon with invalid inputs and invalid id
     Given the user is logged in
     And the moon, "<moon name>" does exist
     When the user navigates to moon on the dropdown menu
@@ -251,7 +251,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-54 @JREQ-SCRUM-74
   Scenario Outline: Neg - Add Moon - Name Too Long - No Image - Invalid ID
-  Users should not be able to add moon with invalid inputs and invalid id
+    Users should not be able to add moon with invalid inputs and invalid id
     Given the user is logged in
     And the moon, "<moon name>" does not exist
     When the user navigates to moon on the dropdown menu
@@ -267,7 +267,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-55 @JREQ-SCRUM-75
   Scenario Outline: Neg - Add Moon - Name is Unique - Too Large Image Size - Invalid ID
-  Users should not be able to add moon with invalid inputs and invalid id
+    Users should not be able to add moon with invalid inputs and invalid id
     Given the user is logged in
     And the moon, "<moon name>" does not exist
     When the user navigates to moon on the dropdown menu
@@ -284,7 +284,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-56 @JREQ-SCRUM-76
   Scenario Outline: Neg - Add Moon - Name Not Unique - Too Large Image Size - Invalid ID
-  Users should not be able to add moon with invalid inputs and invalid id
+    Users should not be able to add moon with invalid inputs and invalid id
     Given the user is logged in
     And the moon, "<moon name>" does exist
     When the user navigates to moon on the dropdown menu
@@ -300,7 +300,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-57 @JREQ-SCRUM-77
   Scenario Outline: Neg - Add Moon - Name Too Long - Too Large Image Size - Invalid ID
-  Users should not be able to add moon with invalid inputs and invalid id
+    Users should not be able to add moon with invalid inputs and invalid id
     Given the user is logged in
     And the moon, "<moon name>" does not exist
     When the user navigates to moon on the dropdown menu
@@ -317,9 +317,8 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-58 @JREQ-SCRUM-78
   Scenario Outline: Neg - Add Moon - Name from Planet - Valid Image Size - Invalid ID
-  Users should not be able to add moon with invalid inputs and invalid id
+    Users should not be able to add moon with invalid inputs and invalid id
     Given the user is logged in
-    And the moon, "<moon name>" does not exist
     And the planet, "<moon name>" does exist
     When the user navigates to moon on the dropdown menu
     And the user enters "<moon name>" in the moon name bar
@@ -331,11 +330,11 @@ Feature: AddMoonsFunctionality
 
     Examples:
       | moon name           | planet id | image src                                      |
-      | ThisNameTakenPlanet | 9         | src/test/resources/Celestial-Images/moon-2.jpg |
+      | ThisNameTakenPlanet | 29        | src/test/resources/Celestial-Images/moon-2.jpg |
 
   @SCRUM-TC-59 @JREQ-SCRUM-79
   Scenario Outline: Neg - Add Moon - Name from Planet - Too Large Image Size - Invalid ID
-  Users should not be able to add moon with invalid inputs and invalid id
+    Users should not be able to add moon with invalid inputs and invalid id
     Given the user is logged in
     And the moon, "<moon name>" does not exist
     And the planet, "<moon name>" does exist
@@ -353,7 +352,7 @@ Feature: AddMoonsFunctionality
 
   @SCRUM-TC-60 @JREQ-SCRUM-80
   Scenario Outline: Neg - Add Moon - Name from planet - No Image - Invalid ID
-  Users should not be able to add moon with invalid inputs and invalid id
+    Users should not be able to add moon with invalid inputs and invalid id
     Given the user is logged in
     And the moon, "<moon name>" does not exist
     And the planet, "<moon name>" does exist
