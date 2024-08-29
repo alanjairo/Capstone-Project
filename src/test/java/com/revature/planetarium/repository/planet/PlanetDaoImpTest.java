@@ -24,11 +24,11 @@ public class PlanetDaoImpTest {
     @BeforeClass
     public static void testDatabaseSetup() throws SQLException {
         Setup.getConnection();
-        Setup.resetTestDatabase();
     }
 
     @Before
     public void setUp() throws Exception {
+        Setup.resetTestDatabase();
         createdPlanet = new Planet();
         createdPlanet.setPlanetName("TestingPlanet");
         createdPlanet.setOwnerId(1);
@@ -46,7 +46,7 @@ public class PlanetDaoImpTest {
 
     @Test
     public void createPlanetPositiveNoImage() {
-        //createdPlanet.setImageData("src/test/resources/Celestial-Images/planet-1.jpg");
+        // createdPlanet.setImageData("src/test/resources/Celestial-Images/planet-1.jpg");
         Optional<Planet> returnedPlanet = dao.createPlanet(createdPlanet);
         System.out.println(returnedPlanet.isPresent());
 
@@ -79,7 +79,7 @@ public class PlanetDaoImpTest {
 
     @Test
     public void readPlanetByIdNegative() {
-        //Assuming there are fewer than 50 planets
+        // Assuming there are fewer than 50 planets
         Assert.assertEquals(Optional.empty(), dao.readPlanet(50));
 
     }
@@ -101,7 +101,7 @@ public class PlanetDaoImpTest {
     }
 
     public void deletePlanetsForNegativeReadAllPlanetsTest() {
-        try (Connection connection = DatabaseConnector.getConnection()){
+        try (Connection connection = DatabaseConnector.getConnection()) {
             String sql = "DELETE FROM planets";
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
@@ -112,13 +112,13 @@ public class PlanetDaoImpTest {
 
     @Test
     public void readPlanetsByOwnerPositive() {
-        //Assumption user 1 only has the database setup planets added
+        // Assumption user 1 only has the database setup planets added
         Assert.assertEquals(2, dao.readPlanetsByOwner(1).size());
     }
 
     @Test
     public void readPlanetsByOwnerNegative() {
-        //Assumption no user with id=3
+        // Assumption no user with id=3
         Assert.assertEquals(0, dao.readPlanetsByOwner(3).size());
     }
 
@@ -153,6 +153,5 @@ public class PlanetDaoImpTest {
     public void deletePlanetByNameNegative() {
         Assert.assertFalse(dao.deletePlanet("thisPlanetDoesNotExist"));
     }
-
 
 }

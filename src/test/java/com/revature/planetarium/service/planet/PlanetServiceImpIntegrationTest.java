@@ -1,6 +1,7 @@
 package com.revature.planetarium.service.planet;
 
 import org.junit.Assert;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -16,7 +17,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collections;
 
-public class PlanetServiceImpTestIntegration<T> {
+public class PlanetServiceImpIntegrationTest<T> {
     private PlanetDaoImp daoImp;
 
     private PlanetServiceImp<T> serviceImp;
@@ -41,7 +42,6 @@ public class PlanetServiceImpTestIntegration<T> {
         daoImp = new PlanetDaoImp();
         serviceImp = new PlanetServiceImp<>(daoImp);
 
-
         newPlanetTestData = new Planet();
         newPlanetTestData.setOwnerId(1);
         newPlanetTestData.setPlanetId(4);
@@ -62,6 +62,10 @@ public class PlanetServiceImpTestIntegration<T> {
 
     }
 
+    @After
+    public void tearDown() throws Exception {
+    }
+
     @Test
     public void createPlanetPositiveIntegration() {
         Planet result = serviceImp.createPlanet(newPlanetTestData);
@@ -70,7 +74,7 @@ public class PlanetServiceImpTestIntegration<T> {
 
     @Test
     public void createPlanetNegNameTooLongIntegration() {
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             serviceImp.createPlanet(negPlanetTestNameDataTL);
         });
         Assert.assertEquals("Planet name must be between 1 and 30 characters", e.getMessage());
@@ -83,41 +87,38 @@ public class PlanetServiceImpTestIntegration<T> {
         negPlanetTestNameDataNU.setPlanetId(6);
         negPlanetTestNameDataNU.setPlanetName("ThisNameTakenPlanet");
         negPlanetTestNameDataNU.setImageData("null");
-        
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             serviceImp.createPlanet(negPlanetTestNameDataNU);
         });
         Assert.assertEquals("Planet name must be unique", e.getMessage());
     }
 
-
     @Test
     public void selectPlanetPosStringIntegration() {
         Planet result = ((PlanetServiceImp<String>) serviceImp).selectPlanet(planetTestData.getPlanetName());
-        Assert.assertEquals("Planet [planetId=1, planetName=Earth, ownerId=1]",result.toString());
+        Assert.assertEquals("Planet [planetId=1, planetName=Earth, ownerId=1]", result.toString());
     }
 
     @Test
     public void selectPlanetPosIntIntegration() {
         Planet result = ((PlanetServiceImp<Integer>) serviceImp).selectPlanet(planetTestData.getPlanetId());
-        Assert.assertEquals("Planet [planetId=1, planetName=Earth, ownerId=1]",result.toString());
+        Assert.assertEquals("Planet [planetId=1, planetName=Earth, ownerId=1]", result.toString());
     }
 
     @Test
     public void selectPlanetNegNotFoundIntegration() {
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             ((PlanetServiceImp<Integer>) serviceImp).selectPlanet(90);
-            }
-        );
+        });
         Assert.assertEquals("Planet not found", e.getMessage());
     }
 
     @Test
     public void selectPlanetNegInvalidTypeIntegration() {
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             ((PlanetServiceImp<Double>) serviceImp).selectPlanet(1.234);
-            }
-        );
+        });
         Assert.assertEquals("identifier must be an Integer or String", e.getMessage());
     }
 
@@ -128,7 +129,7 @@ public class PlanetServiceImpTestIntegration<T> {
 
     @Test
     public void selectAllPlanetsEmptyListIntegration() {
-        try (Connection connection = DatabaseConnector.getConnection()){
+        try (Connection connection = DatabaseConnector.getConnection()) {
             String sql = "DELETE FROM planets";
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
@@ -145,14 +146,14 @@ public class PlanetServiceImpTestIntegration<T> {
 
     @Test
     public void selectByOwnerEmptyListIntegration() {
-            try (Connection connection = DatabaseConnector.getConnection()){
-                String sql = "DELETE FROM planets";
-                Statement statement = connection.createStatement();
-                statement.executeUpdate(sql);
-            } catch (SQLException e) {
-                throw new AssertionError("Could not delete planets");
-            }
-            Assert.assertEquals(Collections.emptyList(), serviceImp.selectByOwner(1));
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            String sql = "DELETE FROM planets";
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new AssertionError("Could not delete planets");
+        }
+        Assert.assertEquals(Collections.emptyList(), serviceImp.selectByOwner(1));
     }
 
     @Test
@@ -172,10 +173,10 @@ public class PlanetServiceImpTestIntegration<T> {
         planetTestFail = new Planet();
         planetTestFail.setPlanetId(99);
 
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             serviceImp.updatePlanet(planetTestFail);
         });
-        Assert.assertEquals("Planet not found, could not update", e.getMessage());  
+        Assert.assertEquals("Planet not found, could not update", e.getMessage());
     }
 
     @Test
@@ -186,10 +187,10 @@ public class PlanetServiceImpTestIntegration<T> {
         planetTestFailTL.setImageData("null");
         planetTestFailTL.setOwnerId(1);
 
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             serviceImp.updatePlanet(planetTestFailTL);
         });
-        Assert.assertEquals("Planet name must be between 1 and 30 characters, could not update", e.getMessage());  
+        Assert.assertEquals("Planet name must be between 1 and 30 characters, could not update", e.getMessage());
     }
 
     @Test
@@ -200,30 +201,32 @@ public class PlanetServiceImpTestIntegration<T> {
         planetTestFailNU.setImageData("null");
         planetTestFailNU.setOwnerId(2);
 
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             serviceImp.updatePlanet(planetTestFailNU);
         });
-        Assert.assertEquals("Planet name must be unique, could not update", e.getMessage());  
+        Assert.assertEquals("Planet name must be unique, could not update", e.getMessage());
     }
 
     @Test
     public void deletePlanetPosIntIntegration() {
         String message = "Planet deleted successfully";
         Boolean deleted = true;
-        Assert.assertEquals(message, ((PlanetServiceImp<Integer>) serviceImp).deletePlanet(planetTestData.getPlanetId()));
+        Assert.assertEquals(message,
+                ((PlanetServiceImp<Integer>) serviceImp).deletePlanet(planetTestData.getPlanetId()));
     }
 
     @Test
     public void deletePlanetPosStringIntegration() {
         String message = "Planet deleted successfully";
         Boolean deleted = true;
-        Assert.assertEquals(message, ((PlanetServiceImp<String>) serviceImp).deletePlanet(planetTestData.getPlanetName()));
+        Assert.assertEquals(message,
+                ((PlanetServiceImp<String>) serviceImp).deletePlanet(planetTestData.getPlanetName()));
     }
 
     @Test
     public void deletePlanetNegNotValidIntegration() {
         String message = "identifier must be an Integer or String";
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             ((PlanetServiceImp<Double>) serviceImp).deletePlanet(1.23);
         });
         Assert.assertEquals(message, e.getMessage());
@@ -232,9 +235,9 @@ public class PlanetServiceImpTestIntegration<T> {
     @Test
     public void deletePlanetNegIntIntegration() {
         String message = "Planet delete failed, please try again";
-        
+
         ((PlanetServiceImp<Integer>) serviceImp).deletePlanet(planetTestData.getPlanetId());
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             ((PlanetServiceImp<Integer>) serviceImp).deletePlanet(planetTestData.getPlanetId());
         });
         Assert.assertEquals(message, e.getMessage());
@@ -243,9 +246,9 @@ public class PlanetServiceImpTestIntegration<T> {
     @Test
     public void deletePlanetNegStringIntegration() {
         String message = "Planet delete failed, please try again";
-        
+
         ((PlanetServiceImp<String>) serviceImp).deletePlanet(planetTestData.getPlanetName());
-        PlanetFail e = Assert.assertThrows(PlanetFail.class, ()->{
+        PlanetFail e = Assert.assertThrows(PlanetFail.class, () -> {
             ((PlanetServiceImp<String>) serviceImp).deletePlanet(planetTestData.getPlanetName());
         });
         Assert.assertEquals(message, e.getMessage());
