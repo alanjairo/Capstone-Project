@@ -6,8 +6,12 @@ import com.revature.planetarium.entities.Planet;
 import com.revature.planetarium.exceptions.MoonFail;
 import org.junit.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,15 +26,12 @@ public class MoonDaoImpTest {
     @BeforeClass
     public static void testDatabaseSetup() throws SQLException {
         Setup.getConnection();
-        Setup.resetTestDatabase();
     }
 
     @Before
     public void setUp() throws Exception {
-        //planet = new Planet(3, "jupiter", 3);
-        planet.setPlanetId(3);
-        planet.setPlanetName("Jupiter");
-        planet.setOwnerId(3);
+        planet = new Planet(3, "jupiter", 3);
+        Setup.resetTestDatabase();
         positiveMoon = new Moon(3, "pluto", planet.getPlanetId());
         existingMoon = new Moon(4, "lanris", planet.getPlanetId());
         dao = new MoonDaoImp();
@@ -39,13 +40,26 @@ public class MoonDaoImpTest {
 
     @After
     public void tearDown() throws Exception {
-        // Setup.resetTestDatabase();
     }
 
-    // I don't know why this is passing
     @Test
     public void createMoonPositive() {
         Optional<Moon> theNewMoon = dao.createMoon(positiveMoon);
+        System.out.println(theNewMoon.isPresent());
+        Assert.assertTrue(theNewMoon.isPresent());
+        assertNotNull(theNewMoon.get().getMoonId());
+
+    }
+
+    @Test
+    public void createMoonPositiveWithImg() throws IOException {
+        File imageFile = new File("src/main/resources/images/galaxy-4.jpg");
+        byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
+        String imageDataBase64 = Base64.getEncoder().encodeToString(imageBytes);
+
+        Moon moon = new Moon(1, "moonWithImg", 3);
+        moon.setImageData(imageDataBase64);
+        Optional<Moon> theNewMoon = dao.createMoon(moon);
         System.out.println(theNewMoon.isPresent());
         Assert.assertTrue(theNewMoon.isPresent());
         assertNotNull(theNewMoon.get().getMoonId());
@@ -94,46 +108,48 @@ public class MoonDaoImpTest {
         dao.createMoon(existingMoon);
 
         List<Moon> moons = dao.readAllMoons();
-        assertEquals(6,moons.size());
+        assertEquals(6, moons.size());
         System.out.println(moons.get(1).getMoonName());
 
     }
-
 
     @Test
     public void readMoonsByPlanet() {
         dao.createMoon(positiveMoon);
         dao.createMoon(existingMoon);
 
-
-
-        List<Moon> moons  = dao.readMoonsByPlanet(3);
-        assertEquals(3,moons.size());
+        List<Moon> moons = dao.readMoonsByPlanet(3);
+        assertEquals(3, moons.size());
     }
 
     // this functionality is not in the final product to my knowledge
     @Test
     public void updateMoon() {
 
-        Moon updatedMoon = new Moon(1,"lunaUpdated",1);
+        Moon updatedMoon = new Moon(1, "lunaUpdated", 1);
         Optional<Moon> theUpdate = dao.updateMoon(updatedMoon);
         assertTrue(theUpdate.isPresent());
-        assertEquals("lunaUpdated",theUpdate.get().getMoonName());
+        assertEquals("lunaUpdated", theUpdate.get().getMoonName());
     }
 
     @Test(expected = MoonFail.class)
     public void updateMoonFail() {
 
-        Moon updatedMoon = new Moon(1,null,1);
+        Moon updatedMoon = new Moon(1, null, 1);
         Optional<Moon> theUpdate = dao.updateMoon(updatedMoon);
         assertTrue(theUpdate.isEmpty());
-        assertEquals(null,theUpdate.get().getMoonName());
+        assertEquals(null, theUpdate.get().getMoonName());
     }
 
     @Test
-    public void deleteMoon() {
+    public void deleteMoonByName() {
         boolean result = dao.deleteMoon(dao.readMoon(1).get().getMoonName());
         assertTrue(result);
     }
-}
 
+    @Test
+    public void deleteMoonByID() {
+        boolean result = dao.deleteMoon(dao.readMoon(1).get().getMoonId());
+        assertTrue(result);
+    }
+}

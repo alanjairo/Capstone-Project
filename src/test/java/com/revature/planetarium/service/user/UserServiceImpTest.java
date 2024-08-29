@@ -1,6 +1,5 @@
 package com.revature.planetarium.service.user;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,12 +7,8 @@ import org.mockito.Mockito;
 
 import com.revature.planetarium.entities.User;
 import com.revature.planetarium.exceptions.UserFail;
-import com.revature.planetarium.repository.user.UserDao;
 import com.revature.planetarium.repository.user.UserDaoImp;
 
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class UserServiceImpTest {
@@ -28,20 +23,17 @@ public class UserServiceImpTest {
     private User nonAuthenticatedUser;
     private User userFail;
 
-    //private List<User> premadeUsers;
-
+    // private List<User> premadeUsers;
 
     @Before
     public void setUp() throws Exception {
         userDaoImp = Mockito.mock(UserDaoImp.class);
         userServiceImp = new UserServiceImp(userDaoImp);
-        newUserCredTestData = new User(1, "Batman","Your mom");
-        newUserUsernameTooLong = new User(2,"This is a username that is too long for the service", "I am the night");
+        newUserCredTestData = new User(1, "Batman", "Your mom");
+        newUserUsernameTooLong = new User(2, "This is a username that is too long for the service", "I am the night");
         newUserPasswordTooLong = new User(3, "Batman", "This is a password that is too long for the service");
-        // premadeUsers = new ArrayList<>();
-        // premadeUsers.add(new User(1,"mockAdmin","1234"));
-        // premadeUsers.add(new User(2,"mockAdmin2","12345"));
-        userNotNew = new User(4,"mockAdmin", "1234");
+
+        userNotNew = new User(4, "mockAdmin", "1234");
         userFail = new User(5, "", "");
     }
 
@@ -49,52 +41,43 @@ public class UserServiceImpTest {
     public void createUserPos() {
         Mockito.when(userDaoImp.createUser(newUserCredTestData)).thenReturn(Optional.of(newUserCredTestData));
         Assert.assertEquals("Created user with username " + newUserCredTestData.getUsername() + " and password "
-                    + newUserCredTestData.getPassword(),userServiceImp.createUser(newUserCredTestData));
+                + newUserCredTestData.getPassword(), userServiceImp.createUser(newUserCredTestData));
     }
 
     @Test
     public void createUserNegU2Long() {
         Mockito.when(userDaoImp.createUser(newUserUsernameTooLong)).thenReturn(Optional.of(newUserUsernameTooLong));
-        UserFail e = Assert.assertThrows(UserFail.class, ()->{
+        UserFail e = Assert.assertThrows(UserFail.class, () -> {
             userServiceImp.createUser(newUserUsernameTooLong);
         });
         System.out.println(e.getMessage());
-        Assert.assertEquals("Username must be between 1 and 30 characters",e.getMessage());
+        Assert.assertEquals("Username must be between 1 and 30 characters", e.getMessage());
     }
 
     @Test
     public void createUserNegP2Long() {
         Mockito.when(userDaoImp.createUser(newUserPasswordTooLong)).thenReturn(Optional.of(newUserPasswordTooLong));
-        UserFail e = Assert.assertThrows(UserFail.class, ()->{
+        UserFail e = Assert.assertThrows(UserFail.class, () -> {
             userServiceImp.createUser(newUserPasswordTooLong);
         });
         System.out.println(e.getMessage());
-        Assert.assertEquals("Password must be between 1 and 30 characters",e.getMessage());
+        Assert.assertEquals("Password must be between 1 and 30 characters", e.getMessage());
     }
 
     @Test
     public void createUserNegUExists() {
         Mockito.when(userDaoImp.findUserByUsername(userNotNew.getUsername())).thenReturn(Optional.of(userNotNew));
-        UserFail e = Assert.assertThrows(UserFail.class, ()->{
+        UserFail e = Assert.assertThrows(UserFail.class, () -> {
             userServiceImp.createUser(userNotNew);
         });
         System.out.println(e.getMessage());
-        Assert.assertEquals("Username is already in use",e.getMessage());
+        Assert.assertEquals("Username is already in use", e.getMessage());
     }
-
-    // @Test
-    // public void createUserNegUFail() {
-    //     Mockito.when(userDaoImp.createUser(userFail)).thenReturn(Optional.of(userFail));
-    //     UserFail e = Assert.assertThrows(UserFail.class, ()->{
-    //         userServiceImp.createUser(userFail);
-    //     });
-    //     System.out.println(e.getMessage());
-    //     Assert.assertEquals("Failed to create user, please try again",e.getMessage());
-    // }
 
     @Test
     public void authenticatePos() {
-        Mockito.when(userDaoImp.findUserByUsername(newUserCredTestData.getUsername())).thenReturn(Optional.of(newUserCredTestData));
+        Mockito.when(userDaoImp.findUserByUsername(newUserCredTestData.getUsername()))
+                .thenReturn(Optional.of(newUserCredTestData));
         Assert.assertEquals(newUserCredTestData, userServiceImp.authenticate(newUserCredTestData));
     }
 

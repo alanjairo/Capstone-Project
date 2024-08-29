@@ -81,12 +81,14 @@
 
     const loginBody = JSON.stringify(loginData);
 
+
     const response = await fetch('http://localhost:8080/login', {
       method: 'POST',
       headers: headersList,
       credentials: 'include',
       body: loginBody
     })
+
     if (response.status === 202) {
       const data = await response.json();
       sessionStorage.setItem("user", data.username)
