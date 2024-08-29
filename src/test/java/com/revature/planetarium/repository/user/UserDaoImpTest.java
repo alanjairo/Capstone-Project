@@ -46,11 +46,11 @@ public class UserDaoImpTest {
     }
 
     // CREATE USER TESTS - NEGATIVE
-    
+
     // @Test(expected = UserFail.class)
     // public void createUserDuplicateUsernameShort() {
-    //     User duplicateUser = new User(6, "Batman", "duplicatePassword");
-    //     dao.createUser(duplicateUser);
+    // User duplicateUser = new User(6, "Batman", "duplicatePassword");
+    // dao.createUser(duplicateUser);
     // }
 
     @Test
@@ -88,7 +88,6 @@ public class UserDaoImpTest {
                 "[SQLITE_CONSTRAINT_NOTNULL] A NOT NULL constraint failed (NOT NULL constraint failed: users.password)",
                 e.getMessage());
     }
-
 
     // FIND USER TESTS - POSITIVE
     @Test
